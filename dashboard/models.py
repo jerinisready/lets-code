@@ -39,7 +39,7 @@ class Day(models.Model):
 
 
 class Question(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=300)
     cource = models.ForeignKey('dashboard.Course', on_delete=models.CASCADE)
     day = models.ForeignKey('dashboard.Day', on_delete=models.CASCADE)
     level = models.PositiveSmallIntegerField(choices=[(1, 'new'), (2, 'intermediate'), (3, 'advanced')], default=1)
