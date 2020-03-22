@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '%d40yyp84xa@w()xy_#%l1+41bkc-^7saix@(y^x%4g*$%srh@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', '').upper() === 'TRUE' 
+DEBUG = os.environ.get('DEBUG', '').upper() == 'TRUE' 
 
 ALLOWED_HOSTS = ['localhost', 'letscode.ddns.net']
 
