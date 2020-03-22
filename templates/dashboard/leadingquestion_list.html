@@ -7,30 +7,28 @@
 
 {% for q in object_list %}
 <div class="row">
-
-<div class="col-md-9">
-    <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
-    	<div class="card-header">
-    		<h3> Assessment #{{ q.id }} </h3>
-    	</div>
-    	<div class="card-body">
-    		<p>#{{ q.question }}</p>
-    	</div>
-    	<div class="card-footer">
-    		{% if not q.is_confident %}
-    			<form method="post" class="float-right">
-    				{% csrf_token %}
-    				<input type="hidden" hidden name="question" value="{{q.id}}" />
-    				<button class="btn btn-info float-right" type="submit"> Slove! </button>
-					<div class="help-text text-muted"> States that you are confident that you can solve this problem. </div>
-	    	
-    			</form>
-			{% else %}
-    			<span class="badge badge-success"> Marked as Solved </span>	
-    		{% endif %}
-    	</div>
+    <div class="col-md-9">
+        <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+        	<div class="card-header">
+        		<h3> Assessment #{{ q.id }} </h3>
+        	</div>
+        	<div class="card-body">
+        		<p>#{{ q.question }}</p>
+        	</div>
+        	<div class="card-footer">
+            {% if not q.is_confident %}
+                <form method="post" class="d-inline">
+                    {% csrf_token %}
+                    <input type="hidden" hidden name="question" value="{{q.id}}" />
+                    <button class="btn btn-info  d-inline" type="submit"> Slove! </button>
+                    <div class="help-text text-muted"> States that you are confident that you can solve this problem. </div>
+                </form>
+            {% else %}
+                <span class="badge badge-success"> Marked as Solved </span> 
+            {% endif %}
+        	</div>
+        </div>
     </div>
-</div>
 </div>
 {% empty %}
 <h3> You do not have any Questions! </h3>

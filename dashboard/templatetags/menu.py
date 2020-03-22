@@ -37,6 +37,17 @@ def params(field_name, value=None, urlencode=None):
     return url.rstrip('&')
 
 
+
+@register.simple_tag
+def query_filter(qs, **kwargs):
+    """ template tag which allows queryset filtering. Usage:
+          {% query books author=author as mybooks %}
+          {% for book in mybooks %}
+            ...
+          {% endfor %}
+    """
+    return qs.filter(**kwargs)
+
 @register.filter(is_safe=True)
 def menu_anchor(_name: str, request):
     if not _name:
@@ -62,10 +73,13 @@ def if_day(request, text: str):
 @register.simple_tag
 def day_list(request):
     out = []
-    for day in Day.objects.filter(name__lte=request.user.next_task).order_by('name'):
-        out.append({'day': day, 'menu_anchor_filter': "daily_task|pk={}".format(day.pk)})
+    days = Day.objects.all().order_by('name').prefetch_related('lesson_set')
+    for day in days:
+        out.append({'day': day, 
+            'menu_anchor_filter': "daily_task|pk={}".format(day.pk),
+            'lessons': [ {'menu_anchor_filter':"daily_task|pk={}".format(l.pk), 'lesson': l } for l in day.lesson_set.all() if l.course_id == request.user.course_id]  # reduces db hit. and not much in number         
+            })
     return out
-
 
 @register.simple_tag
 def exec_function(func, *args, **kwargs):

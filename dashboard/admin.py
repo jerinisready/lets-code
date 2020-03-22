@@ -11,7 +11,7 @@ _ = lambda x:x
 
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
-        (None, {'fields': ('username', 'password', 'course', 'next_task')}),
+        (None, {'fields': ('username', 'password', 'course', 'next_lesson')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name', 'email', 'sem', 'profile_visibility', 'batch', 'remarks')}),
         (_('Internal Use'), {'fields': ('confidence', 'hint_viewed', )}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
@@ -25,22 +25,48 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('username', 'password1', 'password2', 'sem', 'first_name', 'last_name', 'batch'),
         }),
     )
-    list_display = ('username', 'get_full_name', 'sem', 'batch', 'email', 'course', 'next_task')
-    list_filter = ('sem', 'batch', 'is_active', 'profile_visibility', 'course', 'next_task')
+    list_display = ('username', 'get_full_name', 'sem', 'batch', 'email', 'course', 'next_lesson')
+    list_filter = ('sem', 'batch', 'is_active', 'profile_visibility', 'course', 'next_lesson')
     search_fields = ('username', 'first_name', 'last_name', 'email', 'sem', 'batch')
 
-class CustomQuestionAdmin(admin.ModelAdmin):
+class CustomLessonAdmin(admin.ModelAdmin):
     list_display = ('day',  'course',)
     list_filter = ('day', 'course', )
 
+class CustomQuestionAdmin(admin.ModelAdmin):
+    list_filter = ('lesson', 'lesson__course', 'lesson__day' )    
 
 create_panel(User, CustomUserAdmin)
 
 create_panel(Course)
 create_panel(Day)
+create_panel(Lesson, CustomLessonAdmin)
 create_panel(Question, CustomQuestionAdmin)
 create_panel(Reference)
 create_panel(Solution)
-create_panel(Achievement)
 create_panel(LeadingQuestion)
 create_panel(Score)
+
+
+
+from django.contrib.flatpages.admin import FlatPageAdmin
+from django.contrib.flatpages.models import FlatPage
+from django.utils.translation import gettext_lazy as _
+
+# Define a new FlatPageAdmin
+class FlatPageAdmin(FlatPageAdmin):
+    fieldsets = (
+        (None, {'fields': ('url', 'title', 'content', 'sites')}),
+        (_('Advanced options'), {
+            'classes': ('collapse',),
+            'fields': (
+                'enable_comments',
+                'registration_required',
+                'template_name',
+            ),
+        }),
+    )
+
+# Re-register FlatPageAdmin
+admin.site.unregister(FlatPage)
+admin.site.register(FlatPage, FlatPageAdmin)

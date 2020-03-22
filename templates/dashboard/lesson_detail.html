@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block page_title %} Day {{ object.name }} - Assessment  {% endblock %}
+{% block page_subtitle %} Take your today's Cource here. {% endblock %}
+
+
+{% block app_content %}
+
+		<div class="card">
+			<div class="card-header">
+	    		<h6 style="padding:10px"> Lesson #{{ object.order_number }} </h6>
+			</div>	
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-12">
+						{{ object.explanation | safe }}
+					</div>			
+				</div>
+			</div>	
+			<div class="card-footer">
+								
+			</div>	
+		</div>
+
+	    <div class="my-3 card">
+	    	<div class="card-header">
+	    		Questions
+	    	</div>
+	    	<div class="card-body">
+	    		<div class="row">
+	    		{% for qn in object.question_set.all %}
+	    		<div class="col-md-12">
+	    			<h6>#{{ forloop.counter }}. {{ qn.name }}</h6>
+	    			<a class="btn btn-sm btn-primary" href="{% url 'question' pk=qn.pk %}"> - View Question </a>
+	    		</div>
+	    		<hr />
+	    		{% endfor %}
+	    		</div>
+	    	</div>
+	    </div>
+
+
+	    <div class="my-3 card">
+	    	<div class="card-header">
+	    		References
+	    	</div>
+	    	<div class="card-body">
+	    		<div class="row">
+	    		{% for ref in object.reference_set.all %}
+	    		<div class="col-md-12">
+	    			<h6>Reference #{{ forloop.counter }} </h6>
+	    			<p>{{ ref.description | safe }}</p>
+	    			<a class="btn btn-sm btn-primary" href="{{ ref.link }}" target="_blank"> {{ ref.link }} </a>
+	    		</div>
+	    		<hr />
+	    		{% endfor %}
+	    		</div>
+	    	</div>
+	    </div>
+
+
+{% endblock %}

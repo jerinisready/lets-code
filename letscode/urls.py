@@ -22,13 +22,14 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views 
 
 urlpatterns = [
+    path('board/', include('dashboard.urls')),
+    path('admin/', admin.site.urls),
     path('', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.logout_then_login, name='logout'),
     path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
-    path('admin/', admin.site.urls),
-    path('board/', include('dashboard.urls')),
-
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('', include('django.contrib.flatpages.urls')),
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block page_title %} {{ flatpage.title }}  {% endblock %}
+{% block page_subtitle %}  {% endblock %}
+
+
+{% block app_content %}
+
+<div class="row">
+	<div class="col-md-12">
+	    <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+	    	<div class="card-header">
+	    		<h6 style="padding:10px"> {{ flatpage.title }} </h6>
+	    	</div>
+	    	<div class="card-body">
+	    		<div class="col-md-12">
+    				{{ flatpage.content }}
+	    		</div>
+	    	</div>
+	    </div>
+	</div>
+</div>
+
+
+
+{% endblock %}

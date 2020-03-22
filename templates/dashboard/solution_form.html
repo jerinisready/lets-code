@@ -13,7 +13,7 @@
 	    	</div>
 	    	<div class="card-body">
 				<h6> {{question.name}} </h6>
-				<p> {{ question.description }} </p>
+				<p> {{ question.description | safe}} </p>
 				<hr />
 
 				<code> We would like you guys to do your work in your system. once you get the final output. you can simpley go to next question. If you particularly want us to review your code. then you can use this space to share your code to us. 
@@ -21,7 +21,7 @@
 
 	    		<form method="post">
 	    			{% csrf_token %}
-		    		{{ form }}
+		    		{{ form.as_p }}
 		    		<hr />
 		    		<button class="btn btn-primary"> Submit Solution </button>
 	    	</form>
@@ -32,12 +32,10 @@
 
 
 <script>
-
-	document.querySelectorAll('textarea').forEach(function(el)
-	{
-		el.classList.add('form-control')
-	})
-
+	(function(){
+		console.log(document.querySelector('textarea'))
+	document.querySelector('textarea').classList.add('form-control')
+})()
 
 </script>
 

@@ -4,13 +4,12 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import AbstractUser, UserManager
-
+from ckeditor.fields import RichTextField
 # User =  get_user_model()
 
  
 class User(AbstractUser):
     confidence = models.ManyToManyField('dashboard.LeadingQuestion', blank=True)
-    hint_viewed = models.ManyToManyField('dashboard.Question', blank=True)
     profile_visibility = models.BooleanField(default=True)
     sem = models.CharField(max_length=3, choices=[
         ('S2', 'B Tech S2'), 
@@ -23,21 +22,12 @@ class User(AbstractUser):
     batch = models.CharField(max_length=30, null=True, blank=True)
     remarks = models.TextField(null=True, blank=True)
     course = models.ForeignKey('dashboard.Course', on_delete=models.SET_NULL, null=True, blank=True)
-    next_task = models.PositiveSmallIntegerField(default=1)
-
+    next_lesson = models.PositiveSmallIntegerField(default=1)
     objects = UserManager()
 
     def __str__(self):
         return '{}, {}'.format(self.get_full_name(), self.sem)
 
-class Score(models.Model):
-    """ Positive points is achievements, negative points are punishments! """
-    user = models.ForeignKey('dashboard.User', on_delete=models.CASCADE)
-    score = models.IntegerField(default=0)
-    remarks = models.CharField(max_length=100)
-
-    def __str__(self):
-        return '{}, {}'.format(self.user, score)
 
 class Course(models.Model):
     name = models.CharField(max_length=60)
@@ -51,14 +41,35 @@ class Day(models.Model):
     def __str__(self):
         return 'Day {}'.format(self.name)
 
-class Question(models.Model):
-    name = models.CharField(max_length=600)
+
+class Lesson(models.Model):
+    order_number = models.PositiveSmallIntegerField(default=1, blank=True)
+    title = models.CharField(max_length=120)
+    explanation =  RichTextField()
     course = models.ForeignKey('dashboard.Course', on_delete=models.CASCADE)
     day = models.ForeignKey('dashboard.Day', on_delete=models.CASCADE)
-    description =  models.TextField()
-    explanation =  models.TextField(null=True, blank=True)
-    logic =  models.TextField(null=True, blank=True)
-    hint =  models.TextField(null=True, blank=True)
+    completed = models.ManyToManyField('dashboard.User', blank=True)
+
+    class Meta:
+        ordering = ('order_number', 'id')
+
+    def next(self):
+        return Lesson.objects.filter(course=self.course, order_number__gt=self.order_number).first()
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.order_number = ( Lesson.objects.filter(course=self.course).cout() + 1 )
+        return super().save(self, *args, **kwargs)
+
+class Question(models.Model):
+    name = models.CharField(max_length=600)
+    description =  RichTextField()
+    explanation =  RichTextField(null=True, blank=True)
+    logic =  RichTextField(null=True, blank=True)
+    hint =  RichTextField(null=True, blank=True)
+    answer =  RichTextField(null=True, blank=True)
+    lesson = models.ForeignKey('dashboard.Lesson', on_delete=models.CASCADE, null=True, blank=True)
+    hint_viewed = models.ManyToManyField('dashboard.User', blank=True)
 
     def __str__(self):
         return self.name
@@ -69,29 +80,48 @@ class Question(models.Model):
             return reverse('solution-update', kwargs={'pk':sol.pk, 'question': self.question, 'day':user.next_task })  
         else:
             return reverse('solution', kwargs={'question': self.question, 'day':user.next_task })
-            
+
+
 class Reference(models.Model):
     link = models.URLField()
-    question = models.ForeignKey('dashboard.Question', on_delete=models.CASCADE)
+    description = models.TextField()
+    lesson = models.ForeignKey('dashboard.Lesson', on_delete=models.CASCADE)
 
     def __str__(self):
-        return '{} - {}'.format(self.question, self.link)
+        return '{} - {}'.format(self.lesson_id, self.link)
 
 
 class Solution(models.Model):
-    program =  models.TextField(help_text="Write your program here.")
+    program =  RichTextField(help_text="Write your program here.")
     question = models.ForeignKey('dashboard.Question', on_delete=models.CASCADE)
     user = models.ForeignKey('dashboard.User', on_delete=models.CASCADE)
-    suggestions = models.TextField(null=True, blank=True)
+    suggestions = RichTextField(null=True, blank=True)
 
 
-class Achievement(models.Model):
-    program =  models.TextField()
-    question = models.ForeignKey('dashboard.Question', on_delete=models.CASCADE)
+
+class Score(models.Model):
+    """ 
+    
+    Positive points is achievements, negative points are punishments! 
+    Algorithm: 
+        Everyone will get a free 100 points on initial.
+        each logic unlock, 5 points will be reduced.
+
+        1st lesson program will have 25 points. 
+        each lesson above will have 25 + day_number * 10 + lesson order_number points
+
+
+    """
+    user = models.ForeignKey('dashboard.User', on_delete=models.CASCADE)
+    score = models.IntegerField(default=0)
+    remarks = models.CharField(max_length=100)
+
+    def __str__(self):
+        return '{}, {}'.format(self.user, score)
 
 
 class LeadingQuestion(models.Model):
-    question = models.TextField()
+    question = RichTextField()
     course   = models.ForeignKey('dashboard.Course', on_delete=models.CASCADE, null=True, blank=True)
 
 

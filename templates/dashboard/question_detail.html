@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block page_title %} Day {{ object.name }} - Assessment  {% endblock %}
+{% block page_subtitle %} Take your today's Cource here. {% endblock %}
+
+
+{% block app_content %}
+
+<div class="row">
+	<div class="col-md-12">
+	    <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+	    	<div class="card-header">
+	    		<h6 style="padding:10px"> #{{ object.pk }}. {{ object.name }} </h3>
+	    	</div>
+	    	<div class="card-body">
+	    		<div class="col-md-12">
+	    			<h6>DESCRIPTION</h6>
+	    			<p> {{ object.description | safe }} </p>
+	    		</div>
+	    		<hr />
+	    		<div class="col-md-12">
+	    			<h6>EXPLANATION</h6>
+	    			<p> {{ object.explanation | safe }} </p>
+	    		</div>
+	    		<hr />
+	    		<div class="col-md-12">
+	    			<h6>LOGIC</h6>
+	    			<p> {{ object.logic | safe }} </p>
+	    		</div>
+	    		<hr />
+	    		<div class="col-md-12">
+	    			<h6>HINT</h6>
+	    			<p> {{ object.hint | safe }} </p>
+	    		</div>
+	    		<hr />
+	    		<div class="col-md-12">
+	    			<span>
+						{% if request.user.next_task == request.resolver_match.kwargs.pk  %}
+							<form method="post" class="float-right d-block" style="height:60px">
+								{% csrf_token %}
+								<button class="btn btn-info float-right" type="submit"> Mark As Completed! </button>		
+							</form>
+						{% else %}
+							<span class="badge badge-success"> Completed! </span>	
+						{% endif %}
+					</div>
+
+	    			<a href="{% url 'solution' question=object.pk %}" class="float-right"> <button class="btn btn-primary btn-sm" > Submit solution!</button> </a>
+	    		</div>
+	    	</div>
+	    </div>
+	</div>
+</div>
+
+
+{% endblock %}

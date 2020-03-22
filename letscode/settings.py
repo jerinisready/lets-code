@@ -42,14 +42,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'django.contrib.sites',
+    'django.contrib.flatpages',
 
     'dashboard.apps.DashboardConfig',
-
+    'ckeditor',
+    'ckeditor_uploader',
     'debug_toolbar',
     'django_extensions',
 
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -141,6 +145,7 @@ LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
 LOGIN_REDIRECT_URL = 'home'
 
+CKEDITOR_UPLOAD_PATH = os.path.join(BASE_DIR, 'public/media/html-content-uploads')
 
 
 

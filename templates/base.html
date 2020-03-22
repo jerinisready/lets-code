@@ -18,10 +18,6 @@
                 </div>
                 <div class="page-title-actions">
                     {% block layout_header_button_slot %}
-                        {% comment %}
-                        {% url 'dashboard:dealer-create' as dealer_create_url %}
-                        {% include 'dashboard/includes/layout_header_button__template.html' with layout_header_button__link=dealer_create_url layout_header_button__class='info' layout_header_button__icon='fa  fa-w-20 fa-business-time' layout_header_button__text='Button' %}
-                    {% endcomment %}
                     {% endblock layout_header_button_slot %}
                 </div>
             </div>
