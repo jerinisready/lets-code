@@ -12,7 +12,7 @@ class Questions(ListView):
 class LeadingQuestions(ListView):
 
 	def get_queryset(self):
-		return LeadingQuestion.objects.filter(cource=request.user.cource)
+		return LeadingQuestion.objects.filter(course=self.request.user.course)
 
 
 	def post(self, request, *args, **kwargs):

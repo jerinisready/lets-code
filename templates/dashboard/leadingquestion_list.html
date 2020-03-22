@@ -18,9 +18,13 @@
     	</div>
     	<div class="card-footer">
     		{% if not q in request.user.confidence %}
-    			<button class="btn btn-info float-right"> Slove! </button>
+    			<form method="post">
+    				<input type="hidden" hidden name="question" value="{{q.id}}" />
+    				<button class="btn btn-info float-right" type="submit"> Slove! </button>
+    				<small> States that you are confident that you can solve this problem. </small>
+	    		</form>
 			{% else %}
-    			<span class="badge badge-success"> Done </span>	
+    			<span class="badge badge-success"> Marked as Solved </span>	
     		{% endif %}
     	</div>
     </div>

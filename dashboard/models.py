@@ -22,7 +22,7 @@ class User(AbstractUser):
     ], null=True, blank=True)
     batch = models.CharField(max_length=30, null=True, blank=True)
     remarks = models.TextField(null=True, blank=True)
-    cource = models.ForeignKey('dashboard.Course', on_delete=models.SET_NULL, null=True, blank=True)
+    course = models.ForeignKey('dashboard.Course', on_delete=models.SET_NULL, null=True, blank=True)
 
     objects = UserManager()
 
