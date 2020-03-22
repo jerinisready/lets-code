@@ -1,0 +1,33 @@
+{% extends 'skeleton.html' %}
+
+{% block layout_content %}
+    <div class="app-main__inner">
+        <div class="app-page-title">
+            <div class="page-title-wrapper">
+                <div class="page-title-heading">
+                    <div class="page-title-icon">
+                        {% block page_icon %}
+                            <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
+                        {% endblock %}
+                    </div>
+                    <div>{% block page_title %}Put Title in 'page_title' block{% endblock %}
+                        <div class="page-title-subheading">
+                            {% block page_subtitle %}Put some subtitle in 'page_subtitle' block{% endblock %}
+                        </div>
+                    </div>
+                </div>
+                <div class="page-title-actions">
+                    {% block layout_header_button_slot %}
+                        {% comment %}
+                        {% url 'dashboard:dealer-create' as dealer_create_url %}
+                        {% include 'dashboard/includes/layout_header_button__template.html' with layout_header_button__link=dealer_create_url layout_header_button__class='info' layout_header_button__icon='fa  fa-w-20 fa-business-time' layout_header_button__text='Button' %}
+                    {% endcomment %}
+                    {% endblock layout_header_button_slot %}
+                </div>
+            </div>
+        </div>
+        {% block app_content %}
+        {% endblock %}
+        {% include 'dashboard/includes/pagination.html' %}
+    </div>
+{% endblock %}

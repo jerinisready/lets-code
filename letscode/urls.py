@@ -20,7 +20,6 @@ from django.conf.urls import include, url  # For django versions before 2.0
 from django.urls import include, path  # For django versions from 2.0 and up
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views 
-from dashboard import views 
 
 urlpatterns = [
     path('', auth_views.LoginView.as_view(), name='login'),
@@ -28,7 +27,7 @@ urlpatterns = [
     path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
     path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
     path('admin/', admin.site.urls),
-    path('board/', views.Home.as_view(), name='home'),
+    path('board/', include('dashboard.urls')),
 
 ]
 

@@ -7,7 +7,31 @@ from dashboard.models import *
 
 create_panel = admin.site.register
 
-create_panel(User, UserAdmin)
+_ = lambda x:x
+
+class CustomUserAdmin(UserAdmin):
+    fieldsets = (
+        (None, {'fields': ('username', 'password', 'cource')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name', 'email', 'sem', 'profile_visibility', 'batch', 'remarks')}),
+        (_('Internal Use'), {'fields': ('confidence', 'hint_viewed', )}),
+        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+        (_('Permissions'), {
+            'fields': ('is_active', 'is_staff', 'is_superuser', ),
+        }),
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('username', 'password1', 'password2', 'sem', 'first_name', 'last_name', 'batch'),
+        }),
+    )
+    list_display = ('username', 'get_full_name', 'sem', 'batch', 'email', 'cource')
+    list_filter = ('sem', 'batch', 'is_active', 'profile_visibility', 'cource')
+    search_fields = ('username', 'first_name', 'last_name', 'email', 'sem', 'batch')
+
+
+
+create_panel(User, CustomUserAdmin)
 
 create_panel(Course)
 create_panel(Day)

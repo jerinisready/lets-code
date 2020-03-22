@@ -1,0 +1,74 @@
+{% comment %}
+<nav class="" aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item"><a href="javascript:void(0);" class="page-link" aria-label="Previous"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
+        <li class="page-item"><a href="javascript:void(0);" class="page-link">1</a></li>
+        <li class="page-item active"><a href="javascript:void(0);" class="page-link">2</a></li>
+        <li class="page-item"><a href="javascript:void(0);" class="page-link">3</a></li>
+        <li class="page-item"><a href="javascript:void(0);" class="page-link">4</a></li>
+        <li class="page-item"><a href="javascript:void(0);" class="page-link">5</a></li>
+        <li class="page-item"><a href="javascript:void(0);" class="page-link" aria-label="Next"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
+    </ul>
+</nav>
+{% endcomment %}
+
+<nav class="" style="width:100%; " >
+
+    {% if is_paginated %}
+      <ul class="pagination" style="justify-content:center;">
+
+
+          <!-- PREVIOUS -->
+          <li class="page-item {% if not page_obj.has_previous %} disabled {% endif %}">
+              <a href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% else %}javascript:;{% endif %}" class="page-link">
+                  <span aria-hidden="true">«</span><span class="sr-only">Previous</span>
+              </a>
+          </li>
+          <!-- *PREVIOUS* -->
+
+
+          <!-- ... -->
+          {% if  page_obj.number > 2 %}
+              <li class="hellip" id="m_table_1_5_before">
+                  <a href="javascript:;" class="page-link">
+                      &hellip;
+                  </a>
+              </li>
+          {% endif %}
+          <!-- *...* -->
+
+
+          {% for i in page_obj.paginator.page_range %}
+              {% if i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+                  <!-- Nearby -->
+                  <li class="{% if page_obj.number == i %}active{% endif %}">
+                      <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                  </li>
+                  <!-- *Nearby* -->
+              {% endif %}
+          {% endfor %}
+
+
+          <!-- ... -->
+          {% if page_obj.paginator.num_pages > page_obj.number|add:'2' %}
+              <li class="hellip" id="m_table_1_5_before">
+                  <a href="javascript:;"  class="page-link">
+                      <i class="la">&hellip;</i>
+                  </a>
+              </li>
+          {% endif %}
+          <!-- *...* -->
+
+
+          <!-- NEXT -->
+          <li class="{% if not page_obj.has_next %}disabled{% endif %}">
+              <a href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% else %}javascript:;{% endif %}"  class="page-link">
+                  <span aria-hidden="true">»</span><span class="sr-only">Next</span>
+              </a>
+          </li>
+          <!-- *NEXT* -->
+
+      </ul>
+{% endif %}
+
+</nav>

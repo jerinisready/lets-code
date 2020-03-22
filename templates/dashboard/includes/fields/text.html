@@ -1,0 +1,10 @@
+    <label for="{{ field.id_for_label }}" class="col-sm-2 col-form-label form-check-label">{{ field.label_tag }}</label>
+    <div class="col-sm-10">
+        {{ field }}
+        <small class="d-block invalid-feedback text-danger">
+            {{ field.errors | safe }}
+        </small>
+        <small class="d-block text-muted">
+            {{ field.help_text | safe }}
+        </small>
+    </div>
