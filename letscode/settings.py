@@ -26,9 +26,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '%d40yyp84xa@w()xy_#%l1+41bkc-^7saix@(y^x%4g*$%srh@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', '').upper() === 'TRUE' 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'letscode.ddns.net']
 
 
 # Application definition
@@ -135,6 +135,7 @@ AUTH_USER_MODEL = 'dashboard.user'
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
 LOGIN_REDIRECT_URL = 'home'
+
 
 
 
