@@ -6,6 +6,19 @@ from dashboard.models import *
 class Questions(ListView):
 	model = Question
 
+	def get_queryset(self):
+		return Question.objects.filter(cource=request.user.cource)
 
 class LeadingQuestions(ListView):
-	model = LeadingQuestion
+
+	def get_queryset(self):
+		return LeadingQuestion.objects.filter(cource=request.user.cource)
+
+
+	def post(self, request, *args, **kwargs):
+		if(request.POST.get('question')):
+			p = LeadingQuestion.objects.filter(id=request.POST.get('question'))
+			request.user.confidence.add(p)
+			return JsonResponse({'result':True})
+		return JsonResponse({'result':True})	
+

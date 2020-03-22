@@ -1,12 +1,32 @@
 {% extends 'base.html' %}
+{% block page_title %} Complete the survey. {% endblock %}
+{% block page_subtitle %} Here are some Questions, You dont have to answer that. But When you feels you are confident enough to solve each problem. Mark that as "Can be Sloved!". {% endblock %}
 
 
-{% block content %}
+{% block app_content %}
 
 {% for q in object_list %}
- {{ q.id  }} {{ q.name  }}
- <hr />
- {% endfor %}
+<div class="row">
+
+<div class="col-md-9">
+    <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+    	<div class="card-header">
+    		<h3> Assessment #{{ q.id }} </h3>
+    	</div>
+    	<div class="card-body">
+    		<p>#{{ q.question }}</p>
+    	</div>
+    	<div class="card-footer">
+    		{% if not q in request.user.confidence %}
+    			<button class="btn btn-info float-right"> Slove! </button>
+			{% else %}
+    			<span class="badge badge-success"> Done </span>	
+    		{% endif %}
+    	</div>
+    </div>
+</div>
+</div>
+{% endfor %}
 
 
 {% endblock %}

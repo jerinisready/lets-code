@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
+{% block page_title %} {% endblock %}
+{% block page_subtitle %} {% endblock %}
 
 
-{% block content %}
+{% block app_content %}
 
 {% for q in object_list %}
  {{ q.id  }} {{ q.name  }}
