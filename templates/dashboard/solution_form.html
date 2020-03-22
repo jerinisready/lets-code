@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block page_title %} Day {{ object.name }} - Assessment  {% endblock %}
+{% block page_subtitle %} Take your today's Cource here. {% endblock %}
+
+
+{% block app_content %}
+
+<div class="row">
+	<div class="col-md-9">
+	    <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+	    	<div class="card-header">
+	    		<h6 style="padding:10px"> #{{question.pk}} </h3>
+	    	</div>
+	    	<div class="card-body">
+				<h6> {{question.name}} </h6>
+				<p> {{ question.description }} </p>
+				<hr />
+
+				<code> We would like you guys to do your work in your system. once you get the final output. you can simpley go to next question. If you particularly want us to review your code. then you can use this space to share your code to us. 
+				</code>
+
+	    		<form method="post">
+	    			{% csrf_token %}
+		    		{{ form }}
+		    		<hr />
+		    		<button class="btn btn-primary"> Submit Solution </button>
+	    	</form>
+	    	</div>
+	    </div>
+	</div>
+</div>
+
+
+<script>
+
+	document.querySelectorAll('textarea').forEach(function(el)
+	{
+		el.classList.add('form-control')
+	})
+
+
+</script>
+
+{% endblock %}

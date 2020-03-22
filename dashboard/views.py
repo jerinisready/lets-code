@@ -4,6 +4,8 @@ from dashboard.models import *
 from django.http import JsonResponse
 from django.contrib import messages
 from django.db.models import *
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect, QueryDict
 
 # Create your views here.
 class LeadingQuestions(ListView):
@@ -28,8 +30,48 @@ class LeadingQuestions(ListView):
 class DailyTask(DetailView):
 	queryset = Day.objects.all().prefetch_related('question_set')
 
-	def get_conext_data(self, **kwargs):
+	def get_context_data(self, **kwargs):
 		if self.request.user.course:
 			qn_list =  Question.objects.filter(course=self.request.user.course, day=self.object)
-		return super(DailyTask, self).get_conext_data(questions=qn_list, **kwargs)
+		return super(DailyTask, self).get_context_data(questions=qn_list, **kwargs)
 
+	def post(self, request, *args, **kwargs):
+		self.request.user.next_task += 1
+		self.request.user.save()
+		return self.get(request, *args, **kwargs)
+
+
+
+class SubmitSolution(UpdateView):
+	model = Solution
+	question_object = None
+	fields = ( 'program', )
+
+	def get_question_object(self):
+		pk = self.kwargs.get('question')
+		if self.question_object is None:
+			self.question_object = get_object_or_404(Question.objects.all(), **{'pk':pk})
+		return self.question_object
+
+	def get_success_url(self):
+		from django.urls import reverse_lazy
+		messages.success(self.request, "Solution Submitted!")
+		return reverse_lazy('daily_task', self.request.user.next_task)
+
+	def get_context_data(self, **kwargs):
+		return super().get_context_data(question=self.get_question_object(), **kwargs)
+
+	def get_object(self, queryset=None):
+		try:
+			return self.model.objects.filter(user=self.request.user, question=self.get_question_object()).first()
+		except Exception as e:
+			return None 
+
+	def form_valid(self, form):
+		form.cleaned_data['user'] = self.request.user
+		form.cleaned_data['question'] = self.get_question_object()
+		form.save(commit=False)
+		form.instance.user = self.request.user
+		form.instance.question = self.get_question_object()
+		form.instance.save()
+		return HttpResponseRedirect(f'/board/day-{self.request.user.next_task}/')

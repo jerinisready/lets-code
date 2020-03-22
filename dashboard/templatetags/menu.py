@@ -45,7 +45,6 @@ def menu_anchor(_name: str, request):
     constructed_url = request.resolver_match.view_name
     if param_strings:
         constructed_url += '|pk=' + str(request.resolver_match.kwargs.get('pk'))
-    print('name => ', _name, ', constructed_url =>', constructed_url)
     class_if_active = 'mm-active' if _name == constructed_url else ''
     param_strings = {
         k: v for k, v in [_str.split('=') for _str in param_strings.split('&') if _str] if k and v
@@ -66,3 +65,9 @@ def day_list(request):
     for day in Day.objects.filter(name__lte=request.user.next_task).order_by('name'):
         out.append({'day': day, 'menu_anchor_filter': "daily_task|pk={}".format(day.pk)})
     return out
+
+
+@register.simple_tag
+def exec_function(func, *args, **kwargs):
+    return func(*args, **kwargs)
+    

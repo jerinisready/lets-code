@@ -38,14 +38,18 @@
 {% block end_script_sheets %}
 {% endblock %}
 <script type="text/javascript">
-    window.django_messages = [{% for msg in messages %} "{{ msg }}", {% endfor %}];
+    window.django_messages = [{% for msg in messages %} {"tag": {{msg.tag}}, "msg":"{{ msg }}", {% endfor %}];
     document.querySelectorAll('input[type=file]').forEach(function(element){
         element.classList.add('btn');
         element.classList.add('btn-primary');
     });
-    document.querySelectorAll('input[type=text],input[type=password]').forEach(function(element){
-        element.addEventListener('onfocus', function (){ this.select() })
-    })
+
+    (function(){
+        window.django_messages.forEach(function(msg) {
+            Swal.fire("", msg.msg, msg.tag);
+        })
+    })()
+
 </script>
 </body>
 </html>

@@ -63,6 +63,13 @@ class Question(models.Model):
     def __str__(self):
         return self.name
 
+    def get_url(self, user):
+        sol = self.solution_set.filter(user=user).last()
+        if sol:
+            return reverse('solution-update', kwargs={'pk':sol.pk, 'question': self.question, 'day':user.next_task })  
+        else:
+            return reverse('solution', kwargs={'question': self.question, 'day':user.next_task })
+            
 class Reference(models.Model):
     link = models.URLField()
     question = models.ForeignKey('dashboard.Question', on_delete=models.CASCADE)
@@ -72,7 +79,7 @@ class Reference(models.Model):
 
 
 class Solution(models.Model):
-    program =  models.TextField()
+    program =  models.TextField(help_text="Write your program here.")
     question = models.ForeignKey('dashboard.Question', on_delete=models.CASCADE)
     user = models.ForeignKey('dashboard.User', on_delete=models.CASCADE)
     suggestions = models.TextField(null=True, blank=True)
