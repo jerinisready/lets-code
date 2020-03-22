@@ -85,7 +85,7 @@ class Achievement(models.Model):
 
 class LeadingQuestion(models.Model):
     question = models.TextField()
-    cource   = models.ForeignKey('dashboard.Course', on_delete=models.CASCADE, null=True, blank=True)
+    course   = models.ForeignKey('dashboard.Course', on_delete=models.CASCADE, null=True, blank=True)
 
 
 
