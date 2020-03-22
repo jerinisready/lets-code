@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block page_title %} Day {{ object.name }} - Assessment  {% endblock %}
+{% block page_subtitle %} Take your today's Cource here. {% endblock %}
+
+
+{% block app_content %}
+
+{% for qn in questions %}
+<div class="row">
+	<div class="col-md-9">
+	    <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+	    	<div class="card-header">
+	    		<h3> Assessment #{{ qn.id }} </h3>
+	    	</div>
+	    	<div class="card-body">
+	    		<p>#{{ qn.question }}</p>
+	    	</div>
+	    	<div class="card-footer">
+	    		{% if not qn.is_confident %}
+	    			<form method="post" class="float-right">
+	    				{% csrf_token %}
+	    				<input type="hidden" hidden name="question" value="{{qn.id}}" />
+	    				<button class="btn btn-info float-right" type="submit"> Slove! </button>
+						<div class="help-text text-muted"> States that you are confident that you can solve this problem. </div>
+		    	
+	    			</form>
+				{% else %}
+	    			<span class="badge badge-success"> Marked as Solved </span>	
+	    		{% endif %}
+	    	</div>
+	    </div>
+	</div>
+</div>
+{% empty %}
+<h3> You do not have any Questions! </h3>
+{% endfor %}
+
+
+{% endblock %}

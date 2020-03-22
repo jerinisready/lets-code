@@ -29,19 +29,13 @@
                 <li class="app-sidebar__heading">Dashboard</li>
                 <li><a {{ "home"|menu_anchor:request }}><i class="metismenu-icon pe-7s-rocket"></i>Home</a></li>
                 <li class="app-sidebar__heading">Question Bank</li>
-                    <li class="{{ request|if_invoice:"mm-active" }}">
-                        <a {{ request|if_invoice:'aria-expanded="true"' }} href="#"><i class="metismenu-icon pe-7s-diamond"></i>  Questions <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i></a>
-                        <ul class="mm-collapse {{ request|if_invoice:'mm-show' }}">
-                            <li><a ><i class="metismenu-icon"></i> Day 1 </a></li>
-                            <li><a ><i class="metismenu-icon"></i> Day 2 </a></li>
-                            <li><a ><i class="metismenu-icon"></i> Day 3 </a></li>
-                            <li><a ><i class="metismenu-icon"></i> Day 4 </a></li>
-                            <li><a ><i class="metismenu-icon"></i> Day 5 </a></li>
-                            <li><a ><i class="metismenu-icon"></i> Day 6 </a></li>
-                            <li><a ><i class="metismenu-icon"></i> Day 7 </a></li>
-                            <li><a ><i class="metismenu-icon"></i> Day 8 </a></li>
-                            <li><a ><i class="metismenu-icon"></i> Day 9 </a></li>
-                            <li><a ><i class="metismenu-icon"></i> Day 10 </a></li>
+                    <li class="{{ request|if_day:"mm-active" }}">
+                        <a {{ request|if_day:'aria-expanded="true"' }} href="#"><i class="metismenu-icon pe-7s-diamond"></i>  Questions <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i></a>
+                        <ul class="mm-collapse {{ request|if_day:'mm-show' }}">
+                            {% day_list request as task_days  %}
+                            {% for day in task_days %}
+                                <li><a {{ day.menu_anchor_filter|menu_anchor:request  }} ><i class="metismenu-icon"></i> {{ day.day }} </a></li>
+                            {% endfor %}
                         </ul>
                     </li>
                 {% comment %}

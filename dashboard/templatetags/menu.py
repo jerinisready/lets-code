@@ -1,6 +1,7 @@
 from django import template
 from django.urls import reverse_lazy, reverse
 from django.utils.safestring import mark_safe
+from dashboard.models import Day
 
 register = template.Library()
 
@@ -43,8 +44,9 @@ def menu_anchor(_name: str, request):
     name, param_strings = _name.split('|') if '|' in _name else (_name, None)
     constructed_url = request.resolver_match.view_name
     if param_strings:
-        constructed_url += '|' + param_strings
-    class_if_active = 'mm-active' if name == constructed_url else ''
+        constructed_url += '|pk=' + str(request.resolver_match.kwargs.get('pk'))
+    print('name => ', _name, ', constructed_url =>', constructed_url)
+    class_if_active = 'mm-active' if _name == constructed_url else ''
     param_strings = {
         k: v for k, v in [_str.split('=') for _str in param_strings.split('&') if _str] if k and v
     } if param_strings else {}
@@ -54,7 +56,13 @@ def menu_anchor(_name: str, request):
 
 
 @register.filter(is_safe=True)
-def if_invoice(request, text: str):
+def if_day(request, text: str):
     out = request.resolver_match.view_name
-    return text if out.startswith('dashboard:invoices') or out.startswith('dashboard:requests') else ''
+    return text if out in ['daily_task', ] else ''
 
+@register.simple_tag
+def day_list(request):
+    out = []
+    for day in Day.objects.filter(name__lte=request.user.next_task).order_by('name'):
+        out.append({'day': day, 'menu_anchor_filter': "daily_task|pk={}".format(day.pk)})
+    return out

@@ -23,6 +23,7 @@ class User(AbstractUser):
     batch = models.CharField(max_length=30, null=True, blank=True)
     remarks = models.TextField(null=True, blank=True)
     course = models.ForeignKey('dashboard.Course', on_delete=models.SET_NULL, null=True, blank=True)
+    next_task = models.PositiveSmallIntegerField(default=1)
 
     objects = UserManager()
 
@@ -45,16 +46,15 @@ class Course(models.Model):
         return self.name
 
 class Day(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.IntegerField()
 
     def __str__(self):
         return 'Day {}'.format(self.name)
 
 class Question(models.Model):
     name = models.CharField(max_length=600)
-    cource = models.ForeignKey('dashboard.Course', on_delete=models.CASCADE)
+    course = models.ForeignKey('dashboard.Course', on_delete=models.CASCADE)
     day = models.ForeignKey('dashboard.Day', on_delete=models.CASCADE)
-    level = models.PositiveSmallIntegerField(choices=[(1, 'new'), (2, 'intermediate'), (3, 'advanced')], default=1)
     description =  models.TextField()
     explanation =  models.TextField(null=True, blank=True)
     logic =  models.TextField(null=True, blank=True)

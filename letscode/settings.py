@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'dashboard.apps.DashboardConfig',
 
     'debug_toolbar',
+    'django_extensions',
 
 ]
 

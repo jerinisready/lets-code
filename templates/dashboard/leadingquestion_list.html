@@ -17,12 +17,14 @@
     		<p>#{{ q.question }}</p>
     	</div>
     	<div class="card-footer">
-    		{% if not q in request.user.confidence %}
-    			<form method="post">
+    		{% if not q.is_confident %}
+    			<form method="post" class="float-right">
+    				{% csrf_token %}
     				<input type="hidden" hidden name="question" value="{{q.id}}" />
     				<button class="btn btn-info float-right" type="submit"> Slove! </button>
-    				<small> States that you are confident that you can solve this problem. </small>
-	    		</form>
+					<div class="help-text text-muted"> States that you are confident that you can solve this problem. </div>
+	    	
+    			</form>
 			{% else %}
     			<span class="badge badge-success"> Marked as Solved </span>	
     		{% endif %}
@@ -30,6 +32,8 @@
     </div>
 </div>
 </div>
+{% empty %}
+<h3> You do not have any Questions! </h3>
 {% endfor %}
 
 
