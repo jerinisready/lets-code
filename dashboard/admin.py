@@ -30,12 +30,15 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ('sem', 'batch', 'is_active', 'profile_visibility', 'course', )
     search_fields = ('username', 'first_name', 'last_name', 'email', 'sem', 'batch')
 
+
 class CustomLessonAdmin(admin.ModelAdmin):
-    list_display = ('day',  'course',)
+    list_display = ('__str__', 'day',  'course',)
     list_filter = ('day', 'course', )
+
 
 class CustomQuestionAdmin(admin.ModelAdmin):
     list_filter = ('lesson', 'lesson__course', 'lesson__day' )    
+
 
 create_panel(User, CustomUserAdmin)
 
