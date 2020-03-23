@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block page_title %} Complete the survey. {% endblock %}
-{% block page_subtitle %} Here are some Questions, You dont have to answer that. But When you feels you are confident enough to solve each problem. Mark that as "Can be Sloved!". {% endblock %}
+{% block page_subtitle %} Here are some Questions, You don't have to answer that.
+But When you feels you are confident enough to solve each problem.
+Mark that as "Can be Sloved!". {% endblock %}
 
 
 {% block app_content %}
@@ -10,18 +12,17 @@
     <div class="col-md-9">
         <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
         	<div class="card-header">
-        		<h3> Assessment #{{ q.id }} </h3>
+        		<h6> {{ q.title }} </h6>
         	</div>
         	<div class="card-body">
-        		<p>#{{ q.question  | safe }}</p>
-        	</div>
+        		<p>{{ q.question  | safe }}</p>
+            </div>
         	<div class="card-footer">
             {% if not q.is_confident %}
                 <form method="post" class="d-inline">
                     {% csrf_token %}
                     <input type="hidden" hidden name="question" value="{{q.id}}" />
-                    <button class="btn btn-info  d-inline" type="submit"> Slove! </button>
-                    <div class="help-text text-muted"> States that you are confident that you can solve this problem. </div>
+                    <button class="btn btn-info  float-right" type="submit"> Can be Solved! </button>
                 </form>
             {% else %}
                 <span class="badge badge-success"> Marked as Solved </span> 
@@ -34,5 +35,7 @@
 <h3> You do not have any Questions! </h3>
 {% endfor %}
 
-
 {% endblock %}
+
+
+

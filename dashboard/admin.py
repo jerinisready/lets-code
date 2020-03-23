@@ -11,9 +11,10 @@ _ = lambda x:x
 
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
-        (None, {'fields': ('username', 'password', 'course', 'next_lesson')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name', 'email', 'sem', 'profile_visibility', 'batch', 'remarks')}),
-        (_('Internal Use'), {'fields': ('confidence', 'hint_viewed', )}),
+        (None, {'fields': ('username', 'password', 'course', )}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name', 'email', 'sem',
+                                         'profile_visibility', 'batch', 'remarks')}),
+        (_('Internal Use'), {'fields': ('confidence', )}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
         (_('Permissions'), {
             'fields': ('is_active', 'is_staff', 'is_superuser', ),
@@ -25,8 +26,8 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('username', 'password1', 'password2', 'sem', 'first_name', 'last_name', 'batch'),
         }),
     )
-    list_display = ('username', 'get_full_name', 'sem', 'batch', 'email', 'course', 'next_lesson')
-    list_filter = ('sem', 'batch', 'is_active', 'profile_visibility', 'course', 'next_lesson')
+    list_display = ('username', 'get_full_name', 'sem', 'batch', 'email', 'course', )
+    list_filter = ('sem', 'batch', 'is_active', 'profile_visibility', 'course', )
     search_fields = ('username', 'first_name', 'last_name', 'email', 'sem', 'batch')
 
 class CustomLessonAdmin(admin.ModelAdmin):

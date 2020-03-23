@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8754cc23-63f3-4b5c-9ba8-c15427a4980a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/lets-code.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/lets-code.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/includes/app-sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/includes/app-sidebar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dashboard/leadingquestion_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/leadingquestion_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/question_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/question_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/solution_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/solution_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/lesson_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/lesson_detail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,12 +16,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="43" />
-    <option name="y" value="27" />
-    <option name="width" value="1289" />
-    <option name="height" value="555" />
   </component>
   <component name="ProjectId" id="1ZWoalds7lGriVpYG78UWKdRZhX" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -66,13 +58,21 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="494" y="154" width="424" height="484" key="FileChooserDialogImpl" timestamp="1584964541914">
+    <state x="174" y="27" width="1084" height="741" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584980946653">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="494" y="154" width="424" height="484" key="FileChooserDialogImpl/67.27.1299.741@67.27.1299.741" timestamp="1584964541914" />
-    <state x="205" y="31" key="SettingsEditor" timestamp="1584964547194">
+    <state x="174" y="27" width="1084" height="741" key="#com.intellij.execution.impl.EditConfigurationsDialog/67.27.1299.741@67.27.1299.741" timestamp="1584980946653" />
+    <state x="494" y="154" width="424" height="484" key="FileChooserDialogImpl" timestamp="1584980890937">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="205" y="31" key="SettingsEditor/67.27.1299.741@67.27.1299.741" timestamp="1584964547194" />
+    <state x="494" y="154" width="424" height="484" key="FileChooserDialogImpl/67.27.1299.741@67.27.1299.741" timestamp="1584980890937" />
+    <state x="205" y="31" key="SettingsEditor" timestamp="1584980846309">
+      <screen x="67" y="27" width="1299" height="741" />
+    </state>
+    <state x="205" y="31" key="SettingsEditor/67.27.1299.741@67.27.1299.741" timestamp="1584980846309" />
+    <state x="379" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1584982321076">
+      <screen x="67" y="27" width="1299" height="741" />
+    </state>
+    <state x="379" y="89" width="672" height="678" key="search.everywhere.popup/67.27.1299.741@67.27.1299.741" timestamp="1584982321076" />
   </component>
 </project>

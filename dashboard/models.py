@@ -6,8 +6,9 @@ from django.dispatch import receiver
 from django.contrib.auth.models import AbstractUser, UserManager
 from ckeditor.fields import RichTextField
 # User =  get_user_model()
+from django.urls import reverse
 
- 
+
 class User(AbstractUser):
     confidence = models.ManyToManyField('dashboard.LeadingQuestion', blank=True)
     profile_visibility = models.BooleanField(default=True)
@@ -22,7 +23,7 @@ class User(AbstractUser):
     batch = models.CharField(max_length=30, null=True, blank=True)
     remarks = models.TextField(null=True, blank=True)
     course = models.ForeignKey('dashboard.Course', on_delete=models.SET_NULL, null=True, blank=True)
-    next_lesson = models.PositiveSmallIntegerField(default=1)
+    next_lesson = models.ForeignKey('dashboard.Lesson', on_delete=models.SET_NULL, null=True, blank=True)
     objects = UserManager()
 
     def __str__(self):
@@ -59,8 +60,11 @@ class Lesson(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            self.order_number = ( Lesson.objects.filter(course=self.course).cout() + 1 )
-        return super().save(self, *args, **kwargs)
+            self.order_number = (Lesson.objects.filter(course=self.course).aggregate(max=models.Max('order_number'))['max'] or 0) + 1
+        return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return "{}. {}".format(self.order_number, self.title)
 
 
 class Question(models.Model):
@@ -118,7 +122,7 @@ class Score(models.Model):
     remarks = models.CharField(max_length=100)
 
     def __str__(self):
-        return '{}, {}'.format(self.user, score)
+        return '{}, {}'.format(self.user, self.score)
 
 
 class LeadingQuestion(models.Model):
@@ -127,7 +131,7 @@ class LeadingQuestion(models.Model):
     course = models.ForeignKey('dashboard.Course', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
-        return title
+        return self.title
 
 
 
