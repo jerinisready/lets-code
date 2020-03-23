@@ -13,7 +13,7 @@
         		<h3> Assessment #{{ q.id }} </h3>
         	</div>
         	<div class="card-body">
-        		<p>#{{ q.question }}</p>
+        		<p>#{{ q.question  | safe }}</p>
         	</div>
         	<div class="card-footer">
             {% if not q.is_confident %}

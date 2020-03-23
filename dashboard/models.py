@@ -35,6 +35,7 @@ class Course(models.Model):
     def __str__(self):
         return self.name
 
+
 class Day(models.Model):
     name = models.IntegerField()
 
@@ -45,7 +46,7 @@ class Day(models.Model):
 class Lesson(models.Model):
     order_number = models.PositiveSmallIntegerField(default=1, blank=True)
     title = models.CharField(max_length=120)
-    explanation =  RichTextField()
+    explanation = RichTextField()
     course = models.ForeignKey('dashboard.Course', on_delete=models.CASCADE)
     day = models.ForeignKey('dashboard.Day', on_delete=models.CASCADE)
     completed = models.ManyToManyField('dashboard.User', blank=True)
@@ -61,13 +62,14 @@ class Lesson(models.Model):
             self.order_number = ( Lesson.objects.filter(course=self.course).cout() + 1 )
         return super().save(self, *args, **kwargs)
 
+
 class Question(models.Model):
     name = models.CharField(max_length=600)
-    description =  RichTextField()
-    explanation =  RichTextField(null=True, blank=True)
-    logic =  RichTextField(null=True, blank=True)
-    hint =  RichTextField(null=True, blank=True)
-    answer =  RichTextField(null=True, blank=True)
+    description = RichTextField()
+    explanation = RichTextField(null=True, blank=True)
+    logic = RichTextField(null=True, blank=True)
+    hint = RichTextField(null=True, blank=True)
+    answer = RichTextField(null=True, blank=True)
     lesson = models.ForeignKey('dashboard.Lesson', on_delete=models.CASCADE, null=True, blank=True)
     hint_viewed = models.ManyToManyField('dashboard.User', blank=True)
 
@@ -92,11 +94,10 @@ class Reference(models.Model):
 
 
 class Solution(models.Model):
-    program =  RichTextField(help_text="Write your program here.")
+    program = RichTextField(help_text="Write your program here.")
     question = models.ForeignKey('dashboard.Question', on_delete=models.CASCADE)
     user = models.ForeignKey('dashboard.User', on_delete=models.CASCADE)
     suggestions = RichTextField(null=True, blank=True)
-
 
 
 class Score(models.Model):
@@ -121,8 +122,12 @@ class Score(models.Model):
 
 
 class LeadingQuestion(models.Model):
+    title = models.CharField(max_length=300, default="", null=True)
     question = RichTextField()
-    course   = models.ForeignKey('dashboard.Course', on_delete=models.CASCADE, null=True, blank=True)
+    course = models.ForeignKey('dashboard.Course', on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self):
+        return title
 
 
 
