@@ -101,7 +101,7 @@ class Reference(models.Model):
 
 
 class Solution(models.Model):
-    program = RichTextField(help_text="Write your program here.")
+    program = models.TextField(help_text="Write your program here.")
     question = models.ForeignKey('dashboard.Question', on_delete=models.CASCADE)
     user = models.ForeignKey('dashboard.User', on_delete=models.CASCADE)
     suggestions = RichTextField(null=True, blank=True)

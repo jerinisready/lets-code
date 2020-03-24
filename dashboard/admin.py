@@ -37,7 +37,12 @@ class CustomLessonAdmin(admin.ModelAdmin):
 
 
 class CustomQuestionAdmin(admin.ModelAdmin):
-    list_filter = ('lesson', 'lesson__course', 'lesson__day' )    
+    list_filter = ('lesson', 'lesson__course', 'lesson__day' )
+
+
+class SolutionAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'user', 'question', )
+    list_filter = ('user',  'question__lesson', )
 
 
 create_panel(User, CustomUserAdmin)
@@ -47,7 +52,7 @@ create_panel(Day)
 create_panel(Lesson, CustomLessonAdmin)
 create_panel(Question, CustomQuestionAdmin)
 create_panel(Reference)
-create_panel(Solution)
+create_panel(Solution, SolutionAdmin)
 create_panel(LeadingQuestion)
 create_panel(Score)
 

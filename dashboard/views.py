@@ -23,6 +23,7 @@ class LeadingQuestions(ListView):
             p = LeadingQuestion.objects.filter(id=request.POST.get('question')).last()
             if p:
                 request.user.confidence.add(p)
+                messages.success(self.request, "Assessment Marked")
         return self.get(request, *args, **kwargs)
 
 # ======================================================================================
@@ -49,6 +50,7 @@ class LessonView(DetailView):
         obj = self.get_object()
         self.request.user.next_lesson = obj.next()
         self.request.user.save()
+        messages.success(self.request, "Congrats! Welcome to Next Lesson ")
         return self.get(request, *args, **kwargs)
 
 
