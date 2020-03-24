@@ -27,9 +27,9 @@
 <div class="app-sidebar__inner">
     <style> .vertical-nav-menu li a {overflow: hidden; text-overflow: ellipsis;} </style>
 <ul class="vertical-nav-menu">
-    <li class="app-sidebar__heading">Dashboard</li>
-    
-    <li><a {{ "home"|menu_anchor:request }}><i class="metismenu-icon pe-7s-rocket"></i>Home</a></li>
+    <li class="app-sidebar__heading">Home</li>
+    <li><a {{ "home"|menu_anchor:request }}><i class="metismenu-icon pe-7s-rocket"></i>How to use this site. </a></li>
+    <li><a {{ "self-assessment"|menu_anchor:request }}><i class="metismenu-icon pe-7s-rocket"></i>Self Assessment. </a></li>
 
     <li class="app-sidebar__heading">Lessons</li>
     {% day_list request as task_days  %}
@@ -50,10 +50,11 @@
     </li>
     {% endfor %}
 
-    <li class="app-sidebar__heading"> Others </li>
+    <li class="app-sidebar__heading"> Might be Helpful  </li>
     {% load flatpages %}
     {% get_flatpages as flatpages %}
     {% for page in flatpages %}
+
     <li>
         <a href="{{ page.url }}" class="{% if page.url == request.build_absolute_uri %}mm-active{% endif %}" >
         <i class="metismenu-icon pe-7s-rocket"></i> {{ page.title }} </a>
@@ -70,12 +71,6 @@
     <li><a {{ "dashboard:catalogue-create"|menu_anchor:request }} ><i class="metismenu-icon pe-7s-rocket"></i>Add Product</a></li>
     <li><a {{ "dashboard:order-list"|menu_anchor:request }} ><i class="metismenu-icon pe-7s-rocket"></i>Orders</a></li>
 
-
-    <li class="app-sidebar__heading">Configuration</li>
-    <li><a href="{% url 'dashboard:utsavconfiguration-form' %}" class="">
-        <i class="metismenu-icon pe-7s-config"></i>
-        Configure {{ settings.UTSAV_PROGRAMME }}
-    </a></li>
     {% endcomment %}
 
 </ul>

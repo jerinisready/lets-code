@@ -31,10 +31,8 @@
 	    		<div class="col-md-12 mb-2">
 	    			<h6>#{{ forloop.counter }}. {{ qn.name }}</h6>
 	    			<a class="btn btn-sm btn-primary btn-inline " href="{% url 'question' pk=qn.pk %}"> - View Question </a>
-
 	    		<hr />
 				</div>
-
 	    		{% endfor %}
 	    		</div>
 	    	</div>

@@ -8,6 +8,8 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect, QueryDict
 
 # Create your views here.
+
+
 class LeadingQuestions(ListView):
 
     def get_queryset(self):
@@ -16,9 +18,8 @@ class LeadingQuestions(ListView):
             .annotate(is_confident=Exists(self.request.user.confidence.filter(id=OuterRef('pk'))))
         return LeadingQuestion.objects.none()   
 
-
     def post(self, request, *args, **kwargs):
-        if(request.POST.get('question')):
+        if request.POST.get('question'):
             p = LeadingQuestion.objects.filter(id=request.POST.get('question')).last()
             if p:
                 request.user.confidence.add(p)
@@ -83,7 +84,7 @@ class SubmitSolution(UpdateView):
         form.instance.user = self.request.user
         form.instance.question = self.get_question_object()
         form.instance.save()
-        return HttpResponseRedirect(f'/board/lesson-{form.instance.question.id}/')
+        return HttpResponseRedirect(f'/board/question-{self.kwargs.get("question")}/?give_solution')
 
 
 class QuestionView(DetailView):

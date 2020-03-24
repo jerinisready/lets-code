@@ -11,7 +11,8 @@ question = __(QuestionView.as_view())
 namespace = "dashboard"
 
 urlpatterns = [
-	path('', leading_questions, name='home'),
+	path('', TemplateView.as_view(template_name='dashboard/index.html'), name='home'),
+	path('self-assessment/', leading_questions, name='self-assessment'),
 	path('lesson-<int:pk>/', lesson_view, name='daily_task'),
 	path('question-<int:pk>/', question , name='question'),
 	path('question-<int:question>/solution/', solution, name='solution'),

@@ -83,13 +83,12 @@ class Question(models.Model):
     def get_url(self, user):
         sol = self.solution_set.filter(user=user).last()
         if sol:
-            return reverse('solution-update', kwargs={'pk':sol.pk, 'question': self.question, 'day':user.next_task })  
+            return reverse('solution-update', kwargs={'pk': sol.pk, 'question': self.question, 'day': user.next_task })
         else:
             return reverse('solution', kwargs={'question': self.question, 'day':user.next_task })
 
     class Meta:
         ordering = ('id', )
-
 
 
 class Reference(models.Model):

@@ -29,7 +29,7 @@
             {% endblock layout_content %}
             {% include 'dashboard/includes/app-wrapper-footer.html' %}
         </div>
-        {#        <script src="http://maps.google.com/maps/api/js?sensor=true"></script>#}
+{#        <script src="http://maps.google.com/maps/api/js?sensor=true"></script>#}
     </div>
 </div>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
@@ -38,16 +38,21 @@
 {% block end_script_sheets %}
 {% endblock %}
 <script type="text/javascript">
-    window.django_messages = [{% for msg in messages %} {"tag": {{msg.tag}}, "msg":"{{ msg }}", {% endfor %}];
     document.querySelectorAll('input[type=file]').forEach(function(element){
         element.classList.add('btn');
         element.classList.add('btn-primary');
     });
 
     (function(){
-        window.django_messages.forEach(function(msg) {
-            Swal.fire("", msg.msg, msg.tag);
-        })
+{% if messages %}
+    $(document).ready(() => {
+        {% for message in messages %}
+            Swal.fire("", '{{ message }}', 'message.tags' );
+        {% endfor %}
+    });
+
+{% endif %}
+
     })()
 
 </script>
