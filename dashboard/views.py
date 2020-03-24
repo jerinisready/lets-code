@@ -51,11 +51,10 @@ class LessonView(DetailView):
         return self.get(request, *args, **kwargs)
 
 
-
 class SubmitSolution(UpdateView):
     model = Solution
     question_object = None
-    fields = ( 'program', )
+    fields = ('program', )
 
     def get_question_object(self):
         pk = self.kwargs.get('question')
@@ -84,7 +83,7 @@ class SubmitSolution(UpdateView):
         form.instance.user = self.request.user
         form.instance.question = self.get_question_object()
         form.instance.save()
-        return HttpResponseRedirect(f'/board/lesson-{self.request.user.next_lesson.pk}/')
+        return HttpResponseRedirect(f'/board/lesson-{form.instance.question.id}/')
 
 
 class QuestionView(DetailView):

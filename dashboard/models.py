@@ -87,6 +87,10 @@ class Question(models.Model):
         else:
             return reverse('solution', kwargs={'question': self.question, 'day':user.next_task })
 
+    class Meta:
+        ordering = ('id', )
+
+
 
 class Reference(models.Model):
     link = models.URLField()
