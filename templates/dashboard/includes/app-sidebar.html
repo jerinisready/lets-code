@@ -29,8 +29,8 @@
 <ul class="vertical-nav-menu">
     <li class="app-sidebar__heading">Home</li>
     <li><a {{ "home"|menu_anchor:request }}><i class="metismenu-icon pe-7s-news-paper"></i>How to use this site. </a></li>
+    <li><a {{ "identifiers"|menu_anchor:request }}><i class="metismenu-icon pe-7s-ribbon"></i>Keywords, Tokens and Builtin Functions. </a></li>
     <li><a {{ "self-assessment"|menu_anchor:request }}><i class="metismenu-icon pe-7s-medal"></i>Self Assessment. </a></li>
-    <li><a {{ "faq-list"|menu_anchor:request }}><i class="metismenu-icon pe-7s-ribbon"></i>FAQ. </a></li>
 
     <li class="app-sidebar__heading">Lessons</li>
     {% day_list request as task_days  %}
@@ -52,6 +52,8 @@
     {% endfor %}
 
     <li class="app-sidebar__heading"> Might be Helpful  </li>
+    <li><a {{ "faq-list"|menu_anchor:request }}><i class="metismenu-icon pe-7s-ribbon"></i>FAQ. </a></li>
+
     {% load flatpages %}
     {% get_flatpages as flatpages %}
     {% for page in flatpages %}

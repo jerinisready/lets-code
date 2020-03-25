@@ -2,13 +2,9 @@ import datetime
 
 from django.core.cache import cache
 from django.db import models
-from django.contrib.auth import get_user_model
 from django.conf import settings
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.contrib.auth.models import AbstractUser, UserManager
 from ckeditor.fields import RichTextField
-# User =  get_user_model()
 from django.urls import reverse
 from django.utils import timezone
 from django_extensions.db.fields import AutoSlugField
@@ -122,6 +118,9 @@ class Solution(models.Model):
     user = models.ForeignKey('dashboard.User', on_delete=models.CASCADE)
     suggestions = RichTextField(null=True, blank=True)
 
+    def __str__(self):
+        return '{}, {}'.format(self.user, self.program)
+
 
 class Score(models.Model):
     """ 
@@ -161,10 +160,40 @@ class FAQ(models.Model):
     needs_improvement = models.ManyToManyField('dashboard.User', blank=True, related_name='voted_needs_improvement')
     related_lessons = models.ManyToManyField('dashboard.Lesson', blank=True)
 
+    def __str__(self):
+        return self.title
+
 
 class WantedFAQ(models.Model):
     title = models.TextField()
     user = models.ForeignKey('dashboard.User', on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+
+BUILTIN_CHOICES = [
+    (0, 'KeyWord'),
+    (1, 'Operator'),
+    (2, 'Builtin Functions'),
+]
+
+
+class Identifier(models.Model):
+    token_type = models.PositiveSmallIntegerField(choices=BUILTIN_CHOICES, default=0)
+    name = models.CharField(max_length=40, unique=True)
+    description = RichTextField()
+    # code = RichTextField(null=True, blank=True)
+    code = models.TextField(null=True, blank=True)
+    supporting_versions = models.CharField(max_length=120, default='all', null=True, blank=True)
+    slug = AutoSlugField(max_length=50, populate_from=('name', ), overwrite=True, editable=True, unique=True)
+
+    @property
+    def token(self):
+        return ['KeyWord', 'Operator', 'Builtin Functions'][self.token_type]
+
+    def __str__(self):
+        return self.name
 
 
 

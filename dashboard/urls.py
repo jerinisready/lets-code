@@ -9,6 +9,7 @@ question = __(QuestionView.as_view())
 faq = __(FAQListView.as_view())
 faq_detail = __(FAQDetailView.as_view())
 faq_form = __(CreateView.as_view(model=WantedFAQ, form_class=WantedFAQForm, success_url=reverse_lazy('faq-list')))
+identifiers = __(ListView.as_view(model=Identifier))
 
 
 def needs_improvement(request):
@@ -49,8 +50,8 @@ urlpatterns = [
 	path('faq/<slug:slug>/', faq_detail, name='faq-detail'),
 	path('responses/', include('django_comments.urls')),
 	path('faq-wanted/', faq_form, name='faq-wanted'),
-
 	path('needs-improvement/', needs_improvement, name='needs-improvement-api'),
+	path('identifiers/', identifiers, name='identifiers'),
 	path('clip-it/', clip_it, name='clip-it-api'),
 
 ]

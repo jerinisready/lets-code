@@ -1,3 +1,5 @@
+import os
+
 from django.conf import settings
 from django.core.cache import cache
 from django.contrib.auth.models import User
@@ -34,7 +36,7 @@ class OnlineNowMiddleware(MiddlewareMixin):
             now = timezone.now()
             cache.set(f'seen_{request.user.pk}', now, settings.USER_ONLINE_TIMEOUT)
             uid = request.user.id
-
+            os.system(f'echo " {timezone.now()}, {request.user.get_full_name()},[{request.method}] {request.path} \n" >> public/media/login.csv')
             # If their uid is already in the list, we want to bump it
             # to the top, so we remove the earlier entry.
             if uid in online_now_ids:
