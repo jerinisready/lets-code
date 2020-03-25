@@ -1,0 +1,31 @@
+{% load comments %}
+<div class="col-md-12">
+	<div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+
+		<div class="card-header">
+			{% get_comment_count for object as comment_count %}
+			<h6>COMMENTS  <span class="float-right"> - ( {{ comment_count }} )</span></h6>
+		</div>
+		<div class="card-body">
+			<div class="col-md-12">
+				{% render_comment_list for object %}
+			</div>
+		</div>
+		<div class="card-footer">
+
+			{% if user.is_authenticated %}
+			{% get_comment_form for object as form %}
+			<div class="row">
+				<div class="col-md-12">
+					<form action="{% comment_form_target %}" method="POST">
+						{% csrf_token %}{{ form.honeypot }}{{ form.content_type }}{{ form.object_pk }}{{ form.timestamp }}{{ form.security_hash }}
+						<textarea name="comment" cols="40" rows="3" maxlength="3000" required="" id="id_comment" class="float-right form-control" spellcheck="false"></textarea>
+						<input type="hidden" name="next" value="{{ request.get_full_path  }}" />
+						<input type="submit" class="btn btn-raised btn-hover btn-danger w-50 float-right mt-2" value="Add comment" id="id_submit" />
+					</form>
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>

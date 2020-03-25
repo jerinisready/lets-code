@@ -1,5 +1,10 @@
+from django import forms
+from django.forms import ModelForm
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import RedirectView, DetailView, ListView, CreateView, UpdateView, DeleteView, TemplateView
+from django.views.generic.edit import FormMixin
+
 from dashboard.models import *
 from django.http import JsonResponse
 from django.contrib import messages
@@ -14,9 +19,9 @@ class LeadingQuestions(ListView):
 
     def get_queryset(self):
         if self.request.user.course:
-            return LeadingQuestion.objects.filter(course=self.request.user.course)\
-            .annotate(is_confident=Exists(self.request.user.confidence.filter(id=OuterRef('pk'))))
-        return LeadingQuestion.objects.none()   
+            return LeadingQuestion.objects.filter(course=self.request.user.course) \
+                .annotate(is_confident=Exists(self.request.user.confidence.filter(id=OuterRef('pk'))))
+        return LeadingQuestion.objects.none()
 
     def post(self, request, *args, **kwargs):
         if request.POST.get('question'):
@@ -77,7 +82,7 @@ class SubmitSolution(UpdateView):
         try:
             return self.model.objects.filter(user=self.request.user, question=self.get_question_object()).first()
         except Exception as e:
-            return None 
+            return None
 
     def form_valid(self, form):
         form.cleaned_data['user'] = self.request.user
@@ -91,3 +96,42 @@ class SubmitSolution(UpdateView):
 
 class QuestionView(DetailView):
     model = Question
+
+
+class CreateWantedFAQView(CreateView):
+    model = WantedFAQ
+
+
+# ========================================================================
+
+
+class WantedFAQForm(ModelForm):
+    class Meta:
+        model = WantedFAQ
+        fields = ('title', )
+
+
+class FAQDetailView(DetailView):
+
+    def get_queryset(self):
+        return FAQ.objects.all().annotate(
+            upvoted=Exists(self.request.user.clipped_items.filter(id=OuterRef('pk'))),
+            downvoted=Exists(self.request.user.voted_needs_improvement.filter(id=OuterRef('pk'))),
+        )
+
+
+class FAQListView(ListView):
+
+    paginate_by = 30
+
+    def get_queryset(self):
+        return FAQ.objects.all().annotate(
+            upvoted=Exists(self.request.user.clipped_items.filter(id=OuterRef('pk'))),
+            downvoted=Exists(self.request.user.voted_needs_improvement.filter(id=OuterRef('pk'))),
+        )
+
+    def get_context_data(self, *a, object_list=None, **kwargs):
+        return super(FAQListView, self).get_context_data(*a,
+                                                         faq_survey_submit_url=reverse_lazy('faq-wanted'),
+                                                         faq_survey_form=WantedFAQForm,
+                                                         **kwargs)

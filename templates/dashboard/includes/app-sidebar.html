@@ -1,5 +1,5 @@
 {% load menu %}
-<div class="app-sidebar sidebar-shadow" xmlns:item.menu_anchor_filter>
+<div class="app-sidebar sidebar-shadow" >
 <div class="app-header__logo">
 <div class="logo-src"></div>
 <div class="header__pane ml-auto">
@@ -28,8 +28,9 @@
     <style> .vertical-nav-menu li a {overflow: hidden; text-overflow: ellipsis;} </style>
 <ul class="vertical-nav-menu">
     <li class="app-sidebar__heading">Home</li>
-    <li><a {{ "home"|menu_anchor:request }}><i class="metismenu-icon pe-7s-rocket"></i>How to use this site. </a></li>
-    <li><a {{ "self-assessment"|menu_anchor:request }}><i class="metismenu-icon pe-7s-rocket"></i>Self Assessment. </a></li>
+    <li><a {{ "home"|menu_anchor:request }}><i class="metismenu-icon pe-7s-news-paper"></i>How to use this site. </a></li>
+    <li><a {{ "self-assessment"|menu_anchor:request }}><i class="metismenu-icon pe-7s-medal"></i>Self Assessment. </a></li>
+    <li><a {{ "faq-list"|menu_anchor:request }}><i class="metismenu-icon pe-7s-ribbon"></i>FAQ. </a></li>
 
     <li class="app-sidebar__heading">Lessons</li>
     {% day_list request as task_days  %}
@@ -43,7 +44,7 @@
         <ul class="mm-collapse {{ request|if_day:'mm-show' }}">
 
             {% for item in day.lessons  %}
-            <li><a {{ item.menu_anchor_filter | menu_anchor:request  }} style="overflow:hidden;text-overflow:ellipse" >
+            <li><a {{ item.menu_anchor_filter|menu_anchor:request  }} style="overflow:hidden;text-overflow:ellipse" >
                 <i class="metismenu-icon"></i> {{item.lesson.order_number}} - {{ item.lesson.title}}  </a></li>
             {% endfor %}
         </ul>
@@ -54,24 +55,11 @@
     {% load flatpages %}
     {% get_flatpages as flatpages %}
     {% for page in flatpages %}
-
     <li>
         <a href="{{ page.url }}" class="{% if page.url == request.build_absolute_uri %}mm-active{% endif %}" >
         <i class="metismenu-icon pe-7s-rocket"></i> {{ page.title }} </a>
     </li>
     {% endfor %}
-    {% comment %}
-
-    <li class="app-sidebar__heading">Users</li>
-    <li><a {{ "dashboard:dealer-list"|menu_anchor:request }} ><i class="metismenu-icon pe-7s-rocket"></i> {{ settings.UTSAV_DEALER_LABEL }}s </a></li>
-    <li><a {{ "dashboard:dealer-create"|menu_anchor:request }} ><i class="metismenu-icon pe-7s-rocket"></i> Create new {{ settings.UTSAV_DEALER_LABEL }} </a></li>
-    <li class="app-sidebar__heading">Redeem Catalogue</li>
-    <li><a {{ "dashboard:catalogue-list"|menu_anchor:request }} ><i class="metismenu-icon pe-7s-rocket"></i>Catalogue</a></li>
-    <li><a {{ "dashboard:category-list"|menu_anchor:request }} ><i class="metismenu-icon pe-7s-rocket"></i>Category</a></li>
-    <li><a {{ "dashboard:catalogue-create"|menu_anchor:request }} ><i class="metismenu-icon pe-7s-rocket"></i>Add Product</a></li>
-    <li><a {{ "dashboard:order-list"|menu_anchor:request }} ><i class="metismenu-icon pe-7s-rocket"></i>Orders</a></li>
-
-    {% endcomment %}
 
 </ul>
 </div>

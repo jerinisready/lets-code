@@ -1,3 +1,6 @@
+import datetime
+
+from django.core.cache import cache
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.conf import settings
@@ -7,6 +10,8 @@ from django.contrib.auth.models import AbstractUser, UserManager
 from ckeditor.fields import RichTextField
 # User =  get_user_model()
 from django.urls import reverse
+from django.utils import timezone
+from django_extensions.db.fields import AutoSlugField
 
 
 class User(AbstractUser):
@@ -28,6 +33,17 @@ class User(AbstractUser):
 
     def __str__(self):
         return '{}, {}'.format(self.get_full_name(), self.sem)
+
+    def last_seen(self):
+        return cache.get('seen_%s' % self.pk)
+
+    def online(self):
+        if self.last_seen():
+            now = timezone.now()
+            if now <= self.last_seen() + datetime.timedelta(
+                         seconds=settings.USER_ONLINE_TIMEOUT):
+                return True
+        return False
 
 
 class Course(models.Model):
@@ -137,6 +153,18 @@ class LeadingQuestion(models.Model):
         return self.title
 
 
+class FAQ(models.Model):
+    title = models.CharField(max_length=300, default="", null=True)
+    slug = AutoSlugField(max_length=300, populate_from=("title", ), overwrite=True, editable=True, unique=True)
+    explanation = RichTextField(null=True, blank=True)
+    clip_it = models.ManyToManyField('dashboard.User', blank=True, related_name='clipped_items')
+    needs_improvement = models.ManyToManyField('dashboard.User', blank=True, related_name='voted_needs_improvement')
+    related_lessons = models.ManyToManyField('dashboard.Lesson', blank=True)
+
+
+class WantedFAQ(models.Model):
+    title = models.TextField()
+    user = models.ForeignKey('dashboard.User', on_delete=models.SET_NULL, null=True, blank=True)
 
 
 

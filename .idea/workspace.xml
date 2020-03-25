@@ -2,17 +2,41 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8754cc23-63f3-4b5c-9ba8-c15427a4980a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/assets/scripts/faq.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/dashboard/faq_detail.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/dashboard/faq_list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/dashboard/includes/chaport.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/middlewares.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/letscode/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/letscode/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/includes/app-sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/includes/app-sidebar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/includes/app-wrapper-footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/includes/app-wrapper-footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/leadingquestion_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/leadingquestion_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/lesson_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/lesson_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/question_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/question_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dashboard/solution_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/solution_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/skeleton.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/skeleton.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -25,15 +49,17 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/dashboard" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/dashboard/templatetags" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/dashboard/templatetags" />
       <recent name="$PROJECT_DIR$/templates/dashboard" />
     </key>
   </component>
@@ -75,9 +101,13 @@
       <screen x="67" y="27" width="1299" height="741" />
     </state>
     <state x="205" y="31" key="SettingsEditor/67.27.1299.741@67.27.1299.741" timestamp="1584980846309" />
-    <state x="379" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1584982321076">
+    <state x="366" y="27" width="690" height="741" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1585136398021">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state x="379" y="89" width="672" height="678" key="search.everywhere.popup/67.27.1299.741@67.27.1299.741" timestamp="1584982321076" />
+    <state x="366" y="27" width="690" height="741" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/67.27.1299.741@67.27.1299.741" timestamp="1585136398021" />
+    <state x="379" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1585136291400">
+      <screen x="67" y="27" width="1299" height="741" />
+    </state>
+    <state x="379" y="89" width="672" height="678" key="search.everywhere.popup/67.27.1299.741@67.27.1299.741" timestamp="1585136291400" />
   </component>
 </project>

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %} Dashboard {% endblock %}
+{% block page_title %} Frequently Asked Questions. {% endblock %}
+
+{% block page_subtitle %}
+You are not a super hero, so as others. You won't get any issue which none  had got ever. <br />
+That's because everything has reasons.<br />
+Here we can discuss some of those issues. When one asked a Doubt, we can share it over
+here so that others can also analyze the situation. <br />
+{% endblock %}
+
+{% block app_content %}
+{% for faq in object_list %}
+<div class="row">
+    <div class="col-md-9">
+        <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+            <div class="card-header">
+                <h6> #{{ faq.id }}. {{ faq.title }} </h6>
+            </div>
+            <div class="card-body">
+                <p>{{ faq.explanation | safe | truncatechars_html:120 }}...
+                    <a href="{% url 'faq-detail' slug=faq.slug %}" class="read-more-link"> - Read More</a>
+                </p>
+            </div>
+            <div class="card-footer">
+                <div class="w-100">
+                    <i title="Clip it for future Reference" class="metismenu-icon fa-2x pe-7s-note2 {% if q.upvoted %}text-success{% endif %}"></i>
+                    <i title="Needs Improvement" class="float-right metismenu-icon pe-7s-scissors fa-2x {% if q.downvoted %}text-danger{% endif %}"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% empty %}
+<h6> You do not have any FAQ's! </h6>
+{% endfor %}
+<hr class="p-5" />
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+            <div class="card-header">
+                <h6> If you have any question on any topic! Submit a query here. </h6>
+            </div>
+            <div class="card-body">
+                <form action="{{ faq_survey_submit_url }}" method="post" class="form">
+                    {% csrf_token %}
+                    <div class="form-row">
+                    {{ faq_survey_form }}
+                    </div>
+                    <input type="submit" class="btn btn-danger btn-raised w-25 pull-right mt-3" value="Request Your Query!" />
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="float-right">
+                    <i data-id="{{faq.id}}" title="Clip it for future Reference"
+					   class="clip_it metismenu-icon pe-7s-note2 {% if faq.upvoted %}text-success{% endif %}"
+					   data-status="{% if faq.upvoted %}voted{% else %}{% endif %}" ></i>
+                    <i data-id="{{faq.id}}" title="Needs Improvement"
+					   class="needs_improvement metismenu-icon pe-7s-scissors {% if faq.downvoted %}text-danger{% endif %}"
+					   data-status="{% if faq.downvoted %}voted{% else %}{% endif %}" ></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/scripts/faq.js" type="text/javascript"></script>
+{% endblock %}
+
+
+

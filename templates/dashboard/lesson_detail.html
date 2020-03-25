@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block page_title %} Lesson {{ object.order_number }}. {{ object.title }} ( Day {{ object.day.name }})  {% endblock %}
 {% block page_subtitle %}  {% endblock %}
-
+{% block title %} Dashboard {% endblock %}
 
 {% block app_content %}
 
@@ -56,6 +56,9 @@
 	    		</div>
 	    	</div>
 	    </div>
-
-
+	<div class="row">
+		{% include '_comments/comment_section.html' with object=object %}
+	</div>
 {% endblock %}
+
+

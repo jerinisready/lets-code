@@ -54,6 +54,8 @@ create_panel(Question, CustomQuestionAdmin)
 create_panel(Reference)
 create_panel(Solution, SolutionAdmin)
 create_panel(LeadingQuestion)
+create_panel(FAQ)
+create_panel(WantedFAQ)
 create_panel(Score)
 
 

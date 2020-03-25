@@ -34,9 +34,7 @@ ALLOWED_HOSTS = ['localhost', 'letscode.ddns.net']
 # Application definition
 
 INSTALLED_APPS = [
-
     'django.contrib.admin',
-
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -50,7 +48,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'debug_toolbar',
     'django_extensions',
-
+    'django_comments',
 ]
 
 SITE_ID = 1
@@ -64,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'utils.middlewares.OnlineNowMiddleware',
 ]
 
 INTERNAL_IPS = [
@@ -147,8 +146,17 @@ LOGIN_REDIRECT_URL = 'home'
 
 CKEDITOR_UPLOAD_PATH = os.path.join(BASE_DIR, 'public/media/html-content-uploads')
 
-
-
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'default-cache'
+    },
+    # 'redis': {
+    #     'BACKEND': 'redis_cache.RedisCache',
+    #     'LOCATION': 'localhost:6379',
+    # }
+}
+USER_ONLINE_TIMEOUT = 300
 
 
 

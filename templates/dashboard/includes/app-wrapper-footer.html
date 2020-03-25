@@ -4,11 +4,10 @@
             <div class="app-footer-middle mx-auto ">
                 <ul class="nav">
                     <li class="nav-item">
-                        <div class="copyright float-center icon-gradient bg-love-kiss " style="font-size: 12px;">
-                            Made with <i class="pe-7s-like icon-gradient bg-love-kiss" ></i> for a better
-                            web.<br><span style="font-size: 12px">
-                            © 2020 LetsCode
-                            </span>
+                        <div class="copyright float-left icon-gradient bg-love-kiss " style="font-size: 12px;">
+                            <span style="font-size: 12px">© 2020 LetsCode</span> Made with <i class="pe-7s-like icon-gradient bg-love-kiss" ></i> for a better web.
+                            |
+                            {% if request.online_now_ids|length == 1 %} 1 Member {% else %} {{ request.online_now_ids|length }} Members{% endif %} Online{% if 1 in request.online_now_ids %} ( including admin ) {% endif %}
                         </div>
                     </li>
                 </ul>

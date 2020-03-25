@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block page_title %} Day {{ object.name }} - Assessment  {% endblock %}
 {% block page_subtitle %} Take your today's Cource here. {% endblock %}
-
+{% block title %} Submit Solution | Question {{ question.pk }}  |  Day {{ object.name }} - Assessment {% endblock %}
 
 {% block app_content %}
 
@@ -23,7 +23,7 @@
 	    			{% csrf_token %}
 		    		{{ form.as_p }}
 		    		<hr />
-		    		<button class="btn btn-primary"> {% if object.pk %}Re{% endif %}Submit Solution </button>
+		    		<button class="btn btn-primary text-uppercase"> {% if object.pk %}Re{% endif %}Submit Solution </button>
 		    	</form>
 
 				{% if object.suggestions %}
