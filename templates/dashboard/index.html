@@ -77,7 +77,13 @@
 		</div>
 	</div>
 	<div class="card-footer">
-
+		{% if request.user and request.user.username == 'admin' %}
+			<ul>
+			{% for user in request.online_now %}
+				<li> {{ user }}</li>
+			{% endfor %}
+			</ul>
+		{% endif %}
 	</div>
 </div>
 
