@@ -9,8 +9,7 @@ question = __(QuestionView.as_view())
 faq = __(FAQListView.as_view())
 faq_detail = __(FAQDetailView.as_view())
 faq_form = __(CreateView.as_view(model=WantedFAQ, form_class=WantedFAQForm, success_url=reverse_lazy('faq-list')))
-identifiers = __(ListView.as_view(model=Identifier))
-
+identifiers = __(IdentifierListView.as_view(model=Identifier))
 
 def needs_improvement(request):
 	post = request.DATA.get

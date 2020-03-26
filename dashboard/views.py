@@ -125,7 +125,7 @@ class FAQListView(ListView):
     paginate_by = 30
 
     def get_queryset(self):
-        return FAQ.objects.all().annotate(
+        return FAQ.objects.all().filter(course=self.request.user.course).annotate(
             upvoted=Exists(self.request.user.clipped_items.filter(id=OuterRef('pk'))),
             downvoted=Exists(self.request.user.voted_needs_improvement.filter(id=OuterRef('pk'))),
         )
@@ -135,3 +135,13 @@ class FAQListView(ListView):
                                                          faq_survey_submit_url=reverse_lazy('faq-wanted'),
                                                          faq_survey_form=WantedFAQForm,
                                                          **kwargs)
+
+
+class IdentifierListView(ListView):
+
+    def get_queryset(self):
+        return Identifier.objects.all().filter(course=self.request.user.course)
+
+
+
+

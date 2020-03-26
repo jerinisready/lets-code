@@ -59,6 +59,7 @@ class Day(models.Model):
 class Lesson(models.Model):
     order_number = models.PositiveSmallIntegerField(default=1, blank=True)
     title = models.CharField(max_length=120)
+    slug = AutoSlugField(max_length=300, populate_from=("title", 'pk'), overwrite=True, )
     explanation = RichTextField()
     course = models.ForeignKey('dashboard.Course', on_delete=models.CASCADE)
     day = models.ForeignKey('dashboard.Day', on_delete=models.CASCADE)
@@ -81,6 +82,7 @@ class Lesson(models.Model):
 
 class Question(models.Model):
     name = models.CharField(max_length=600)
+    slug = AutoSlugField(max_length=300, populate_from=("name", 'pk'), overwrite=True, )
     description = RichTextField()
     explanation = RichTextField(null=True, blank=True)
     logic = RichTextField(null=True, blank=True)
@@ -189,7 +191,7 @@ class Identifier(models.Model):
     code = RichTextField(null=True, blank=True)
     course = models.ForeignKey('dashboard.Course', on_delete=models.CASCADE, null=True, blank=True)
     supporting_versions = models.CharField(max_length=120, default='all', null=True, blank=True)
-    slug = AutoSlugField(max_length=50, populate_from=('name', ), overwrite=True, editable=True, unique=True)
+    slug = AutoSlugField(max_length=50, populate_from=('name', 'pk'), overwrite=True, )
 
     @property
     def token(self):
