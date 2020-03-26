@@ -2,9 +2,10 @@ import os
 
 from django.conf import settings
 from django.core.cache import cache
-from django.contrib.auth.models import User
 from django.utils import timezone
 from django.utils.deprecation import MiddlewareMixin
+
+from dashboard.models import User
 
 USER_ONLINE_TIMEOUT = getattr(settings, 'USER_ONLINE_TIMEOUT', 300)  # 5 minutes
 ONLINE_MAX = getattr(settings, 'ONLINE_MAX', 50)
