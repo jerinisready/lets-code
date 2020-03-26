@@ -129,4 +129,6 @@ dmypy.json
 .pyre/
 .env
 
-/public/static
+/public/static/
+/public/media/
+/public/media/login.csv
