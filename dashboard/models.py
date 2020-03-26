@@ -138,6 +138,7 @@ class Score(models.Model):
     user = models.ForeignKey('dashboard.User', on_delete=models.CASCADE)
     score = models.IntegerField(default=0)
     remarks = models.CharField(max_length=100)
+    course = models.ForeignKey('dashboard.Course', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return '{}, {}'.format(self.user, self.score)
@@ -159,6 +160,7 @@ class FAQ(models.Model):
     clip_it = models.ManyToManyField('dashboard.User', blank=True, related_name='clipped_items')
     needs_improvement = models.ManyToManyField('dashboard.User', blank=True, related_name='voted_needs_improvement')
     related_lessons = models.ManyToManyField('dashboard.Lesson', blank=True)
+    course = models.ForeignKey('dashboard.Course', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -167,6 +169,7 @@ class FAQ(models.Model):
 class WantedFAQ(models.Model):
     title = models.TextField()
     user = models.ForeignKey('dashboard.User', on_delete=models.SET_NULL, null=True, blank=True)
+    course = models.ForeignKey('dashboard.Course', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -184,7 +187,7 @@ class Identifier(models.Model):
     name = models.CharField(max_length=40, unique=True)
     description = RichTextField()
     code = RichTextField(null=True, blank=True)
-
+    course = models.ForeignKey('dashboard.Course', on_delete=models.CASCADE, null=True, blank=True)
     supporting_versions = models.CharField(max_length=120, default='all', null=True, blank=True)
     slug = AutoSlugField(max_length=50, populate_from=('name', ), overwrite=True, editable=True, unique=True)
 
