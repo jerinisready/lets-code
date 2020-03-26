@@ -3,15 +3,13 @@
 {% block page_title %} Keywords, Tokens and Builtin Functions {% endblock %}
 
 {% block page_subtitle %}
-    This page will consist of Keywords, Tokens and Builtin Functions. Feel free to ask to add more.
+This page will consist of Keywords, Tokens and Builtin Functions. Feel free to ask to add more.
 {% endblock %}
 
 {% block app_content %}
-<!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css" />-->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css" />
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/night-owl.min.css" />
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
-<script charset="UTF-8" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/python.min.js"></script>
 
 <style>
 
@@ -69,27 +67,25 @@
 
 {% for token in object_list %}
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-9 ">
         <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
             <div class="card-header">
                 <h6> {{ token.name }} </h6>
             </div>
             <div class="card-body">
-                {{ token.description | safe }}
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
-            <div class="card-header">
-                <h6> {{ token.name }} </h6>
-            </div>
-            <div class="card-body">
-                <pre>
-                    <code class="python">
-                           {{ token.code }}
-                    </code>
-                </pre>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ token.description | safe }}
+
+                    </div>
+                    <div class="col-md-6">
+                        <pre>
+                            <code class="python">
+                                   {{ token.code | safe }}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -99,7 +95,16 @@
 {% endfor %}
 <hr class="p-5" />
 
-<script src="/assets/scripts/faq.js" type="text/javascript"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+<script charset="UTF-8" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/python.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        hljs.configure({useBR: true});
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+     });
+</script>
 {% endblock %}
 
 

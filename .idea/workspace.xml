@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8754cc23-63f3-4b5c-9ba8-c15427a4980a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dashboard/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dashboard/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/includes/app-sidebar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/includes/app-sidebar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/middlewares.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/middlewares.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/media/login.csv" beforeDir="false" afterPath="$PROJECT_DIR$/public/media/login.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/identifier_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/identifier_list.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

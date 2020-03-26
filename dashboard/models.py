@@ -183,8 +183,8 @@ class Identifier(models.Model):
     token_type = models.PositiveSmallIntegerField(choices=BUILTIN_CHOICES, default=0)
     name = models.CharField(max_length=40, unique=True)
     description = RichTextField()
-    # code = RichTextField(null=True, blank=True)
-    code = models.TextField(null=True, blank=True)
+    code = RichTextField(null=True, blank=True)
+
     supporting_versions = models.CharField(max_length=120, default='all', null=True, blank=True)
     slug = AutoSlugField(max_length=50, populate_from=('name', ), overwrite=True, editable=True, unique=True)
 
