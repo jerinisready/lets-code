@@ -53,11 +53,11 @@ This page will consist of Keywords, Tokens and Builtin Functions. Feel free to a
 
 <div class="row tagcloud01">
     {% for token_group in token_type %}
-    <div class="col-md-4">
+    <div class="col-md-12">
         <h6> {{ token_group.grouper }} </h6>
         <ul class=" border rounded pt-3 pl-3 mb-3">
             {% for token in token_group.list %}
-            <li><a href="#">{{ token }}</a></li>
+            <li><a href="#token-{{ token.slug }}">{{ token.name }}</a></li>
             {% endfor %}
         </ul>
     </div>
@@ -66,6 +66,7 @@ This page will consist of Keywords, Tokens and Builtin Functions. Feel free to a
 
 
 {% for token in object_list %}
+<section id="token-{{token.slug}}" style="padding-top:                                                                                                                                                                      80px; margin-top:-80px">
 <div class="row">
     <div class="col-md-9 ">
         <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
@@ -90,6 +91,7 @@ This page will consist of Keywords, Tokens and Builtin Functions. Feel free to a
         </div>
     </div>
 </div>
+</section>
 {% empty %}
 <h6> This page will be updated shortly! </h6>
 {% endfor %}
