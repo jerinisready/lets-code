@@ -28,7 +28,7 @@ def __unlink_files(*args):
 def run_python(program, inp=''):
     py_filename = __save_as_file(program)
     input_filename = __save_input(inp, py_filename)
-    command = ['python',  py_filename]
+    command = ['python3',  py_filename]
 
     fopen = open(input_filename, 'r')
     result = run(command, stdout=PIPE, stderr=PIPE, stdin=fopen)
