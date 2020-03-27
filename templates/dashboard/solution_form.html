@@ -9,7 +9,7 @@
 	<div class="col-md-9">
 	    <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
 	    	<div class="card-header">
-	    		<h6 style="padding:10px"> #{{question.pk}} </h3>
+	    		<h6 style="padding:10px"> #{{question.pk}} </h6>
 	    	</div>
 	    	<div class="card-body">
 				<h6> {{question.name}} </h6>
@@ -35,8 +35,9 @@
 	    </div>
 	</div>
 </div>
-
-
+{% if object.pk %}
+	{% include '_comments/comment_section.html' with object=object privacy_statement=1 %}
+{% endif %}
 <script>
 	(function(){
 		console.log(document.querySelector('textarea'))

@@ -1,0 +1,218 @@
+div.terminal {
+    margin-top:20px ;
+    padding: 0px -15px 0 -15px;
+    box-shadow: 0px 6px 14px 1px #c0c0c0;
+    border: 1px solid whitesmoke;
+    border-radius: 2px;
+}
+div.terminal .clean-terminal {
+    position absolite;
+    right:3px; top: 3px;
+    color: #fff;
+    font-size:10px;
+    opacity:0;
+    width:14px;height:14px;font-size:14px;
+    font-weight:800;
+    transition: all .3s ease-in-out;
+    float: right;
+}
+div.terminal:hover .clean-terminal{
+    opacity:100;
+}
+div.terminal .fakeButtons {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  border: 1px solid #000;
+  position: relative;
+  top: 6px;
+  left: 6px;
+  background-color: #ff3b47;
+  border-color: #9d252b;
+  display: inline-block;
+}
+
+div.terminal .fakeMinimize {
+  left: 11px;
+  background-color: #ffc100;
+  border-color: #9d802c;
+}
+
+div.terminal .fakeZoom {
+  left: 16px;
+  background-color: #00d742;
+  border-color: #049931;
+}
+
+div.terminal .fakeText {
+    position: relative;
+    margin-top: -12px;
+    margin-left: 65px;
+    font-size: 10px;
+    user-select: none;
+    -moz-user-select: none;
+}
+
+div.terminal .fakeMenu {
+  width: 100%;
+  box-sizing: border-box;
+  height: 25px;
+  background-color: #bbb;
+  margin: 0 auto;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+div.terminal .fakeScreen {
+  background-color: #151515;
+  box-sizing: border-box;
+  min-height:180px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+div.terminal p {
+  position: relative;
+  margin: 4px 5px;
+  text-align: left;
+  font-size: 11px;
+  font-family: monospace;
+  white-space: normal;
+  overflow:hidden;
+  line-height:13px;
+  width: 0;
+}
+
+div.terminal span {
+  color: #fff;
+  font-weight: bold;
+}
+
+div.terminal {
+overflow: hidden
+}
+div.terminal .info {
+  color: #9CD9F0;
+    width: 100%;
+
+}
+
+div.terminal .cursor1 {
+  -webkit-animation: blink 1s 2s 2 forwards;
+  -moz-animation: blink 1s 2s 2 forwards;
+  -o-animation: blink 1s 2s 2 forwards;
+  animation: blink 1s 2s 2 forwards;
+}
+
+div.terminal .warning {
+  color: #CDEE69;
+    width: 100%;
+
+}
+
+div.terminal .cursor2 {
+  -webkit-animation: blink 1s 5.25s 2 forwards;
+  -moz-animation: blink 1s 5.25s 2 forwards;
+  -o-animation: blink 1s 5.25s 2 forwards;
+  animation: blink 1s 5.25s 2 forwards;
+}
+
+div.terminal .danger {
+  color: #E09690;
+    width: 100%;
+
+}
+
+div.terminal  .cursor3 {
+  -webkit-animation: blink 1s 8.5s 2 forwards;
+  -moz-animation: blink 1s 8.5s 2 forwards;
+  -o-animation: blink 1s 8.5s 2 forwards;
+  animation: blink 1s 8.5s 2 forwards;
+}
+
+div.terminal  .primary {
+  color: #fff;
+  width: 100%;
+}
+
+div.terminal  .cursor4 {
+  -webkit-animation: blink 1s 11.5s infinite;
+  -moz-animation: blink 1s 8.5s infinite;
+  -o-animation: blink 1s 8.5s infinite;
+  animation: blink 1s 8.5s infinite;
+}
+
+@-webkit-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@-o-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

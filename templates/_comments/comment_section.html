@@ -7,6 +7,15 @@
 			<h6>COMMENTS  <span class="float-right"> - ( {{ comment_count }} )</span></h6>
 		</div>
 		<div class="card-body">
+
+			<div class="col-md-12">
+				{% if privacy_statement %}
+					<div class="alert alert-success alert-close">
+						Only You and Admin can view or participate in this chat here.
+						Feel free to check here for more suggestions.
+					</div>
+				{% endif %}
+			</div>
 			<div class="col-md-12">
 				{% render_comment_list for object %}
 			</div>

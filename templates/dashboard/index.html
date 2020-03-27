@@ -78,6 +78,7 @@
 	</div>
 	<div class="card-footer">
 		{% if request.user and request.user.username == 'admin' %}
+			<b>LOGGED-IN USERS</b> <br />
 			<ul>
 			{% for user in request.online_now %}
 				<li> {{ user }}</li>

@@ -4,52 +4,260 @@
 {% block title %} Dashboard {% endblock %}
 
 {% block app_content %}
+<!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css" />-->
+<!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/night-owl.min.css" />-->
+<style>
+	.switch {position: relative;display: block;vertical-align: top;width: 100px;height: 30px;padding: 3px;margin: 0 10px 10px 0;background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);border-radius: 18px;box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);cursor: pointer;box-sizing:content-box;}
+	.switch-input {	position: absolute;	top: 0;	left: 0;	opacity: 0;	box-sizing:content-box;}
+	.switch-label {position: relative;display: block;height: inherit;font-size: 10px;text-transform: uppercase;background: #eceeef;border-radius: inherit;box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);box-sizing:content-box;}
+	.switch-label:before, .switch-label:after {position: absolute;top: 50%;margin-top: -.5em;line-height: 1;-webkit-transition: inherit;-moz-transition: inherit;-o-transition: inherit;	transition: inherit;box-sizing:content-box;}
+	.switch-label:before {content: attr(data-off);right: 11px;color: #aaaaaa;text-shadow: 0 1px rgba(255, 255, 255, 0.5);}
+	.switch-label:after {content: attr(data-on);left: 11px;	color: #FFFFFF;text-shadow: 0 1px rgba(0, 0, 0, 0.2);opacity: 0;}
+	.switch-input:checked ~ .switch-label {	background: #E1B42B;box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);}
+	.switch-input:checked ~ .switch-label:before {opacity: 0;}
+	.switch-input:checked ~ .switch-label:after {opacity: 1;}
+	.switch-handle {position: absolute;top: 4px;left: 4px;width: 28px;height: 28px;background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);border-radius: 100%;box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);}
+	.switch-handle:before {content: "";position: absolute;top: 50%;left: 50%;margin: -6px 0 0 -6px;width: 12px;height: 12px;	background: linear-gradient(to bottom, #eeeeee, #FFFFFF);background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF);border-radius: 6px;	box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);}
+	.switch-input:checked ~ .switch-handle {left: 74px;box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);}
+	.switch-label, .switch-handle {transition: All 0.3s ease;-webkit-transition: All 0.3s ease;-moz-transition: All 0.3s ease;-o-transition: All 0.3s ease;}
+</style>
+<style>
+    #vueApp > pre {
+        border-radius:5px;
+        margin:15px 10px;
+        border:2px solid #a83a54;
+    }
+    #vueApp > pre:before{
+        content:'Running Terminal - Python 3.7.6 - LETS CODE '20';
+        padding:20px;
+        background-color:#a83a54
 
+    }
+    .hljs{border-radius:3px;}
+</style>
+<link rel="stylesheet" href="/assets/css/terminal.css" />
+<script src="/assets/scripts/vue.min.js" type="text/javascript" ></script>
 <div class="row">
-	<div class="col-md-12">
-		<div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
-			<div class="card-header">
-				<h6 style="padding:10px"> #{{ object.pk }}. {{ object.name }} </h6>
-			</div>
-			<div class="card-body">
-				<div class="col-md-12">
-					<h6>DESCRIPTION</h6>
-					<p> {{ object.description | safe }} </p>
-				</div>
-				<hr />
-				<div class="col-md-12">
-					<h6>EXPLANATION</h6>
-					<p> {{ object.explanation | safe }} </p>
-				</div>
-				<hr />
-				<div class="col-md-12">
-					<h6>LOGIC</h6>
-					<p> {{ object.logic | safe }} </p>
-				</div>
-				<hr />
-				<div class="col-md-12">
-					<h6>HINT</h6>
-					<p> {{ object.hint | safe }} </p>
-				</div>
-				<hr />
-				<div class="col-md-12">
-	    			<span>
-						{% if request.user.next_task == request.resolver_match.kwargs.pk  %}
-							<form method="post" class="float-right d-block" style="height:60px">
-								{% csrf_token %}
-								<button class="btn btn-info float-right" type="submit"> Mark As Completed! </button>		
-							</form>
-						{% else %}
-							<span class="badge badge-success"> Completed! </span>	
-						{% endif %}
-					</span>
-				</div>
-				<a href="{% url 'solution' question=object.pk %}" class="float-right"> <button class="btn btn-primary btn-sm" > Submit solution!</button> </a>
-			</div>
-		</div>
-	</div>
+    <div class="col-md-12" >
+        <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
+            <div class="card-header">
+                <h6 style="padding:10px"> #{{ object.pk }}. {{ object.name }} </h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6>DESCRIPTION</h6>
+                        <p> {{ object.description | safe }} </p>
+                    </div>
+                    <hr />
+                    {% if object.explanation %}
+                    <div class="col-md-12">
+                        <h6>EXPLANATION</h6>
+                        <p> {{ object.explanation | safe }} </p>
+                    </div>
+                    <hr />
+                    {% endif %}
+                    {% if  object.logic %}
+                    <div class="col-md-6">
+                        <h6>LOGIC</h6>
+                        <p> {{ object.logic | safe }} </p>
+                    </div>
+                    {% endif %}
+                    {% if object.hint %}
+                    <div class="col-md-6">
+                        <h6>HINT</h6>
+                        <p> {{ object.hint | safe }} </p>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="row" >
+                    <div class="col-md-12">
+                        <h3 class="text-success">LETS TRY IT OUT !</h3>
+                        <code> We would like you guys to do your work in your system. once you get the final output. you can simpley go to next question. If you particularly want us to review your code. then you can use this space to share your code to us.
+                        </code>
+                    </div>
+                    <div class="col-md-12">
+                        <form method="post" >
+                            <div class="row">
+                                <div class="col-md-8">
+                                    {% csrf_token %}
+                                    <div class="form-row  px-3">
+                                        <label for="program_ide">Program</label>
+                                        <textarea id="program_ide" name="program" class="form-control" rows="10" cols="60"> {{ solution.program }} </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mt-3 form-row px-3">
+                                        <div class="textarea_holder">
+                                            <label for="input_ide"> Input </label>
+                                            <label class="switch" for="id_switch_textarea_control">
+                                                <input class="switch-input" id="id_switch_textarea_control"
+                                                       name="show_input_ide" onchange="javascript:document.getElementById('input_ide'). style.display = (this.checked)?'block':'none';" type="checkbox" />
+                                                <span class="switch-label" data-on="On" data-off="Off"></span>
+                                                <span class="switch-handle"></span>
+                                            </label>
+                                            <textarea id="input_ide" rows="5" cols="40" name="input" style="display:none" class="form-control"> </textarea>
+                                            <div class="help-text text-small text-muted">
+                                                This segment is to add the input for your program. </br>
+                                                If you have multiple inputs, give each input in new line.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-danger text-uppercase float-left" onclick="compile_program()"> Compile </button>
+                                    <button type="submit" class="btn btn-primary text-uppercase float-right"> Save Solution </button>
+                                </div>
+                                <div class="col-md-8" id="vueApp">
+                                <div v-if="!display" class=" p3 terminal" id="python-response-code">
+                                        <div class=fakeMenu>
+                                          <div class="fakeButtons fakeClose"></div>
+                                          <div class="fakeButtons fakeMinimize"></div>
+                                          <div class="fakeButtons fakeZoom"></div>
+                                          <div class="fakeText "> Running Terminal - Python 3.7.6 - LETS CODE 2020 </div>
+                                        </div>
+                                        <div class="fakeScreen">
+                                            <div class="clean-terminal" onclick="window.vueApp.cls()"><i class="metismenu-icon pe-7s-scissors"></i> </div>
+                                            {% verbatim  %}
+                                          <p v-for="data in data_stack" :class="data.theme" v-html="data.message"></p>
+                                            {% endverbatim %}
+                                        </div>
+									</div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                {% if request.user.next_lesson.pk <= request.resolver_match.kwargs.pk  %}
+                <form method="post" class="float-right d-block" style="height:60px" onsubmit="verify_submission">
+                    {% csrf_token %}
+                    <input type="number" name="course_completed" value="0" hidden>
+                    <button class="btn btn-info float-right" id="marker_button" disabled="disabled" type="submit"> <i class="metismenu-icon fa-2x pe-7s-ribbon"></i> Mark As Completed! </button>
+                </form>
+                {% else %}
+                <div>
+                    <button class="btn btn-success float-right"> <i class="metismenu-icon pe-7s-medal  fa-2x text-white"></i> Completed! </button>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
 
-{% include '_comments/comment_section.html' with object=object %}
+<script>
+	var cor_label = "course_completed__{{object.pk}}";
+
+    var verify_submission = function(event){
+     	if (document.querySelector('input[name=course_completed]').value ===  0){
+     		event.preventDefault()
+     		Swal.fire('', 'You need to submit the correct solution to pass this level.', 'danger')
+     		return false;
+     	}
+		return true;
+    }
+	var compile_program = function(){
+        window.vueApp.callProgram();
+	    console.table({program : document.getElementById('program_ide').value,
+	  			input : document.getElementById('program_ide').value})
+	  	fetch('{% url 'compiler-python-api' %}', {
+	  		credentials: 'include',
+	  		method:'POST',
+	  		body: JSON.stringify({
+	  			program : document.getElementById('program_ide').value,
+	  			input : document.getElementById('program_ide').value
+	  		}),
+			headers: {
+				'Content-Type': 'application/json'
+			},
+	  	}).then(function(r) { return r.json()}).then(function(r){
+                window.vueApp.setData(r.out, r.error)
+	  	})
+	  }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        /**
+		hljs.configure({useBR: true});
+		document.querySelectorAll('pre code').forEach((block) => {
+			hljs.highlightBlock(block);
+		}); **/
+		(function(){
+			window.vueApp = new Vue({
+                el: '#vueApp',
+                data: {
+                username: '{{ request.user.first_name|default:request.user.username|lower }}',
+                question: '{{ object.pk }}',
+                datenow: new Date(),
+                display: false,
+                data_stack: [],
+                },
+                methods: {
+                    info : function(message){ this.setMessage(message, 'info')},
+                    danger : function(message){this.setMessage(message, 'danger')},
+                    primary : function(message){this.setMessage(message, 'primary')},
+                    warning : function(message){this.setMessage(message, 'warning')},
+                    setMessage : function(obj, theme){ this.data_stack.push({theme:theme, message: obj});},
+                    clearMessage : function(){this.data_stack = []; },
+                    callProgram : function(){
+                            var obj = this.data_stack.pop();
+                            obj['message'] = obj['message'] + '  python /tmp/' + this.username + '/question-' + this.question +'.py ';
+                            this.data_stack.push(obj);
+                            var self = this;
+                            setTimeout(function(){self.danger('Loading Inputs...'); }, 200)
+                            setTimeout(function(){self.danger('Executing...'); }, 400)
+                    },
+                    setData : function(out, err){
+                            var self = this;
+                            if(out){
+                                out = out.replace(/\n/g, '<br />');
+                                setTimeout(function(){self.primary(out); }, 400)
+                            }else if (err){
+                                setTimeout(function(){self.danger(err); }, 400)
+                            }
+                            if (out && err){
+                                setTimeout(function(){self.danger(err); }, 800)
+                            }
+                            setTimeout(function(){self.info(self.username + '@Mac-pro:~ $ demo'); }, 1000);
+
+                    },
+                    cls : function(){
+                        this.clearMessage();
+                        var self = this;
+                        setTimeout(function(){self.info('Last Login: ' + self.datenow + ' on ttys000'); }, 400)
+                        setTimeout(function(){self.info(self.username + '@Mac-pro:~ $ '); }, 800);
+                    },
+                },
+                created: function(){
+                    this.cls();
+                    var self = this;
+                    setTimeout(function(){self.warning(' Server is initializing with Python3.7.6.'); }, 1200)
+                    setTimeout(function(){self.danger('Booting up lets code python compiler....'); }, 1600);
+                    setTimeout(function(){self.primary('Process Completed!'); }, 1800);
+                    setTimeout(function(){self.info(self.username + '@Mac-pro:~ $ '); }, 2000);
+                }
+			});
+		})()
+
+    	(function(storage){
+			if(storage && storage.getItem(cor_label) === true){
+				var inp = document.querySelector('input[name=course_completed]');
+				var btn = document.getElementById('marker_button');
+				if (btn && inp){
+						document.querySelector('input[name=course_completed]').value = 1;
+						document.getElementById('marker_button').removeAttribute('disabled');
+				}
+			}
+		})(localStorage)
+
+	});
+
+
+
+</script>
+
+{% if object.pk %}
+<div class="row">
+    {% include '_comments/comment_section.html' with object=object privacy_statement=1 %}
+</div>
+{% endif %}
 
 {% endblock %}

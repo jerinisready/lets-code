@@ -23,11 +23,11 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'password1', 'password2', 'sem', 'first_name', 'last_name', 'batch'),
+            'fields': ('username', 'password1', 'password2', 'sem', 'first_name', 'last_name', 'course', 'batch'),
         }),
     )
-    list_display = ('username', 'get_full_name', 'sem', 'batch', 'email', 'course', )
-    list_filter = ('sem', 'batch', 'is_active', 'profile_visibility', 'course', )
+    list_display = ('username', 'get_full_name', 'sem', 'batch', 'email', 'course', 'date_joined', 'last_login',)
+    list_filter = ('sem', 'batch', 'is_active', 'course', )
     search_fields = ('username', 'first_name', 'last_name', 'email', 'sem', 'batch')
 
 
