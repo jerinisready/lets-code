@@ -172,17 +172,18 @@ class IdentifierListView(ListView):
 @csrf_exempt
 def check_python_api(request):
     out = None
-    _type = None
+    err = None
     stat = 400
     data = json.loads(request.body)
     if request.method == 'POST' and data.get('program') and request.user.is_authenticated:
         program = data.get('program', '')
         sample_input = data.get('input', '')
-        out, error = run_python(program, sample_input)
+        out, err = run_python(program, sample_input)
         stat = 200
+        print(out, err)
     return JsonResponse({
-        'out': out,
-        'error': error,
+        'out': out.decode(),
+        'error': err.decode(),
         'authenticated': request.user.is_authenticated
     }, status=stat)
 

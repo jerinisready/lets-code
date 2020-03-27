@@ -1,6 +1,6 @@
 import uuid
 import os
-from subprocess import PIPE, run
+from subprocess import PIPE, run, Popen
 
 
 def __save_as_file(program):
@@ -12,7 +12,7 @@ def __save_as_file(program):
 
 def __save_input(inp, filename):
     filename = filename + '.input'
-    with open(filename , 'w') as pointer:
+    with open(filename, 'w') as pointer:
         pointer.write(inp if inp else '')
     return filename
 
@@ -25,13 +25,14 @@ def __unlink_files(*args):
             pass
 
 
-def run_python(program, input=''):
+def run_python(program, inp=''):
     py_filename = __save_as_file(program)
-    input_filename = __save_input(input, py_filename)
+    input_filename = __save_input(inp, py_filename)
     command = ['python',  py_filename]
-    infile = open(input_filename, 'r')
-    result = run(command, stdout=PIPE, stderr=PIPE, stdin=infile, universal_newlines=True, shell=False)
-    infile.close()
+
+    fopen = open(input_filename, 'r')
+    result = run(command, stdout=PIPE, stderr=PIPE, stdin=fopen)
+    fopen.close()
     if input_filename:
         __unlink_files(py_filename, input_filename)
     else:

@@ -83,7 +83,7 @@
                                     {% csrf_token %}
                                     <div class="form-row  px-3">
                                         <label for="program_ide">Program</label>
-                                        <textarea id="program_ide" name="program" class="form-control" rows="10" cols="60"> {{ solution.program }} </textarea>
+                                        <textarea id="program_ide" name="program" class="form-control" style="white-space: pre-wrap !important;" rows="10" cols="60"> {{ solution.program }} </textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -96,7 +96,7 @@
                                                 <span class="switch-label" data-on="On" data-off="Off"></span>
                                                 <span class="switch-handle"></span>
                                             </label>
-                                            <textarea id="input_ide" rows="5" cols="40" name="input" style="display:none" class="form-control"> </textarea>
+                                            <textarea id="input_ide" rows="5" cols="40" name="input" style="white-space: pre-wrap !important;display:none" class="form-control"> </textarea>
                                             <div class="help-text text-small text-muted">
                                                 This segment is to add the input for your program. </br>
                                                 If you have multiple inputs, give each input in new line.
@@ -158,13 +158,13 @@
 	var compile_program = function(){
         window.vueApp.callProgram();
 	    console.table({program : document.getElementById('program_ide').value,
-	  			input : document.getElementById('program_ide').value})
+	  			input : document.getElementById('input_ide').value})
 	  	fetch('{% url 'compiler-python-api' %}', {
 	  		credentials: 'include',
 	  		method:'POST',
 	  		body: JSON.stringify({
 	  			program : document.getElementById('program_ide').value,
-	  			input : document.getElementById('program_ide').value
+	  			input : document.getElementById('input_ide').value
 	  		}),
 			headers: {
 				'Content-Type': 'application/json'
